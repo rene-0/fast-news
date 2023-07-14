@@ -1,20 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { AntDesign, FontAwesome5 } from '@expo/vector-icons'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { NavigationContainer } from '@react-navigation/native'
+import { StatusBar } from 'expo-status-bar'
+import React from 'react'
+import { Home } from './src/screens/home/Home'
+import { NewDetail } from './src/screens/new-detail/NewDetail'
+
+const Tab = createBottomTabNavigator()
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <>
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen
+            options={{
+              headerShown: false,
+              tabBarIcon: () => (
+                <FontAwesome5
+                  name='home'
+                  size={24}
+                  color='black'
+                />
+              ),
+              tabBarShowLabel: false,
+            }}
+            name='Home'
+            component={Home}
+          />
+          <Tab.Screen
+            options={{
+              tabBarIcon: () => (
+                <AntDesign
+                  name='appstore1'
+                  size={24}
+                  color='black'
+                />
+              ),
+              tabBarShowLabel: false,
+            }}
+            name='Settings'
+            component={NewDetail}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+      <StatusBar style='light' />
+    </>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
