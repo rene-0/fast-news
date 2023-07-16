@@ -1,4 +1,5 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
+import { LabeledIcon } from '../../../hero-section/components/labeled-icon/LabeledIcon'
 
 export function News() {
   return (
@@ -10,7 +11,41 @@ export function News() {
         }}
       />
       <View style={style.descriptionContainer}>
-        <Text style={style.newsTitle}>Some text</Text>
+        <Text
+          numberOfLines={1}
+          style={style.newsTitle}
+        >
+          Some text very very long text loooong
+        </Text>
+        <View style={style.iconLabelContainer}>
+          <LabeledIcon
+            iconName='eye'
+            label='366'
+            color='black'
+            textShadow={false}
+          />
+          <LabeledIcon
+            iconName='clockcircle'
+            label='13/12/1998'
+            color='black'
+            size={14}
+            textShadow={false}
+          />
+          <LabeledIcon
+            iconName='message1'
+            label='366'
+            color='black'
+            size={14}
+            textShadow={false}
+          />
+          <LabeledIcon
+            iconName='star'
+            label='89'
+            color='black'
+            size={14}
+            textShadow={false}
+          />
+        </View>
         <Text
           numberOfLines={3}
           style={style.newsPreview}
@@ -40,12 +75,16 @@ const style = StyleSheet.create({
   },
   newsTitle: {
     fontWeight: '700',
-    fontSize: 18,
-    lineHeight: 18,
+    fontSize: 16,
+    lineHeight: 16,
   },
   newsPreview: {
+    fontSize: 11,
     width: '100%',
     textAlign: 'justify',
     color: '#808080',
+  },
+  iconLabelContainer: {
+    flexDirection: 'row',
   },
 })

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
+import { GenericStyles } from '../../../../ui/styles/generic-styles'
 import { LabeledIcon } from './components/labeled-icon/LabeledIcon'
 
 export function HeroSection() {
@@ -13,7 +14,7 @@ export function HeroSection() {
       />
       <View style={style.heroDescriptionMask}>
         <View style={style.heroDescriptionContainer}>
-          <Text style={[style.heroTitle, style.textShadow]}>Home Tab</Text>
+          <Text style={[style.heroTitle, GenericStyles.textShadow]}>Home Tab</Text>
           <View style={style.iconLabelContainer}>
             <LabeledIcon
               iconName='eye'
@@ -39,7 +40,7 @@ export function HeroSection() {
               size={14}
             />
           </View>
-          <Text style={[style.heroDescription, style.textShadow]}>
+          <Text style={[style.heroDescription, GenericStyles.textShadow]}>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero, recusandae blanditiis unde odio sapiente ipsum neque quibusdam? Sapiente consequatur facilis quam
             pariatur, totam odit mollitia sit nam ducimus officia ipsa?
           </Text>
@@ -78,11 +79,6 @@ const style = StyleSheet.create({
     color: '#ffffff',
     fontSize: 12,
     textAlign: 'justify',
-  },
-  textShadow: {
-    textShadowColor: '#00000050',
-    textShadowRadius: 1,
-    textShadowOffset: { height: 1, width: 1 },
   },
   iconLabelContainer: {
     flexDirection: 'row',

@@ -1,23 +1,25 @@
 import { AntDesign } from '@expo/vector-icons'
 import { StyleSheet, Text, View } from 'react-native'
+import { GenericStyles } from '../../../../../../ui/styles/generic-styles'
 
 type LabeledIconProps = {
   label: string | number
   iconName: keyof typeof AntDesign.glyphMap
   color?: string
   size?: number
+  textShadow?: boolean
 }
 
-export function LabeledIcon({ label, iconName, color = 'white', size = 18 }: LabeledIconProps) {
+export function LabeledIcon({ label, iconName, color = 'white', size = 18, textShadow = true }: LabeledIconProps) {
   return (
     <View style={style.iconContainer}>
       <AntDesign
         name={iconName}
         size={size}
         color={color}
-        style={style.textShadow}
+        style={textShadow && GenericStyles.textShadow}
       />
-      <Text style={[style.iconLabel, style.textShadow]}>{label}</Text>
+      <Text style={[{ color }, style.iconLabel, textShadow && GenericStyles.textShadow]}>{label}</Text>
     </View>
   )
 }
@@ -27,13 +29,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  textShadow: {
-    textShadowColor: '#00000050',
-    textShadowRadius: 1,
-    textShadowOffset: { height: 1, width: 1 },
-  },
   iconLabel: {
-    color: 'white',
     marginLeft: 2,
     fontSize: 12,
     marginRight: 10,
