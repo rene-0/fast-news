@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
-import { LabeledIcon } from '../../../hero-section/components/labeled-icon/LabeledIcon'
+import { LabeledIcon } from '../../../../../../ui/components/labeled-icon/LabeledIcon'
 
 export function News() {
   return (

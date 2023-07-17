@@ -1,6 +1,6 @@
 import { AntDesign } from '@expo/vector-icons'
 import { StyleSheet, Text, View } from 'react-native'
-import { GenericStyles } from '../../../../../../ui/styles/generic-styles'
+import { GenericStyles } from '../../styles/generic-styles'
 
 type LabeledIconProps = {
   label: string | number

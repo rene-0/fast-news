@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
+import { LabeledIcon } from '../../../../ui/components/labeled-icon/LabeledIcon'
 import { GenericStyles } from '../../../../ui/styles/generic-styles'
-import { LabeledIcon } from './components/labeled-icon/LabeledIcon'
 
 export function HeroSection() {
   return (
