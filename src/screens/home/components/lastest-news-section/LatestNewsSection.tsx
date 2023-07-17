@@ -1,6 +1,6 @@
+import { GenericStyles } from '@/ui/styles/generic-styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { GenericStyles } from '../../../../ui/styles/generic-styles'
 import { News } from './components/news/News'
 
 export function LatestNewsSection() {
