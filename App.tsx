@@ -1,4 +1,4 @@
-import { AntDesign, FontAwesome5 } from '@expo/vector-icons'
+import { AntDesign, FontAwesome, Octicons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
@@ -17,7 +17,7 @@ export default function App() {
             options={{
               headerShown: false,
               tabBarIcon: () => (
-                <FontAwesome5
+                <Octicons
                   name='home'
                   size={24}
                   color='black'
@@ -39,7 +39,35 @@ export default function App() {
               ),
               tabBarShowLabel: false,
             }}
-            name='Settings'
+            name='Categories'
+            component={NewDetail}
+          />
+          <Tab.Screen
+            options={{
+              tabBarIcon: () => (
+                <AntDesign
+                  name='book'
+                  size={24}
+                  color='black'
+                />
+              ),
+              tabBarShowLabel: false,
+            }}
+            name='Bookmark'
+            component={NewDetail}
+          />
+          <Tab.Screen
+            options={{
+              tabBarIcon: () => (
+                <FontAwesome
+                  name='user-o'
+                  size={24}
+                  color='black'
+                />
+              ),
+              tabBarShowLabel: false,
+            }}
+            name='User'
             component={NewDetail}
           />
         </Tab.Navigator>
