@@ -19,7 +19,7 @@ export function LatestNewsSection() {
       </ScrollView>
       <LinearGradient
         style={style.viewMoreContainer}
-        colors={['transparent', '#0000001a', '#00000033', '#0000004d']}
+        colors={['transparent', '#00000020', '#00000040', '#00000050', '#00000060']}
       >
         <Text style={[style.viewMore, GenericStyles.textShadow]}>View more</Text>
       </LinearGradient>
