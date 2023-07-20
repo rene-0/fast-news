@@ -1,5 +1,6 @@
 {
   "expo": {
+    "entryPoint": "./src/App.tsx",
     "name": "news-app",
     "slug": "news-app",
     "version": "1.0.0",

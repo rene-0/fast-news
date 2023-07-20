@@ -1,20 +1,27 @@
 import { GenericStyles } from '@/ui/styles/generic-styles'
+import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { News } from './components/news/News'
 
 export function LatestNewsSection() {
+  const navigation = useNavigation()
+
+  const navigateToNewsDetail = () => {
+    navigation.navigate('NewsDetailScreen', { newsId: 1 })
+  }
+
   return (
     <View style={style.latestNewsContainer}>
       <ScrollView style={style.scrollableNewsContainer}>
         <Text style={style.latestNewsTitle}>Latest news</Text>
         <View style={style.newsContainer}>
-          <News />
-          <News />
-          <News />
-          <News />
-          <News />
-          <News />
+          <News onPress={navigateToNewsDetail} />
+          <News onPress={navigateToNewsDetail} />
+          <News onPress={navigateToNewsDetail} />
+          <News onPress={navigateToNewsDetail} />
+          <News onPress={navigateToNewsDetail} />
+          <News onPress={navigateToNewsDetail} />
         </View>
       </ScrollView>
       <LinearGradient

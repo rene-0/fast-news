@@ -1,9 +1,16 @@
 import { LabeledIcon } from '@/ui/components/labeled-icon/LabeledIcon'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 
-export function News() {
+export type NewsProps = {
+  onPress: () => void
+}
+
+export function News({ onPress }: NewsProps) {
   return (
-    <View style={style.newsContainer}>
+    <Pressable
+      onPress={onPress}
+      style={style.newsContainer}
+    >
       <Image
         style={style.newsImage}
         source={{
@@ -54,7 +61,7 @@ export function News() {
           beatae quasi autem error facilis.
         </Text>
       </View>
-    </View>
+    </Pressable>
   )
 }
 

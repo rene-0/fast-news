@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native'
 import { HeroSection } from './components/hero-section/HeroSection'
 import { LatestNewsSection } from './components/lastest-news-section/LatestNewsSection'
 
-export function Home() {
+export function HomeScreen() {
   return (
     <View style={style.root}>
       <HeroSection />
