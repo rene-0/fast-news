@@ -7,6 +7,10 @@ type NewsDetailScreenProps = {
 export type RootStackParamList = {
   HomeScreen: undefined
   NewsDetailScreen: NewsDetailScreenProps
+  UserProfile: undefined
+  UserSetting: undefined
+  FavoriteNews: undefined
+  NewsHistory: undefined
 }
 
 export type RootNativeStackScreenProps<T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>

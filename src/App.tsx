@@ -1,35 +1,16 @@
 import { AntDesign, FontAwesome, Octicons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
 import { registerRootComponent } from 'expo'
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { RootStackParamList } from './navigation/navigation-types'
-import { HomeScreen } from './screens/home/HomeScreen'
+import { NewsDetailStackNavigation } from './navigation/NewsDeatilStackNavigation'
+
+import { UserProfileStackNavigation } from './navigation/UserProfileStackNavigation'
 import { NewsDetailScreen } from './screens/news-detail/NewsDetailScreen'
 
-const Stack = createStackNavigator<RootStackParamList>()
-
 const Tab = createBottomTabNavigator()
-
-const NewsDetailStackNavigation = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name='HomeScreen'
-        component={HomeScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name='NewsDetailScreen'
-        component={NewsDetailScreen}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  )
-}
 
 export default function App() {
   return (
@@ -55,7 +36,7 @@ export default function App() {
             options={{
               tabBarIcon: () => (
                 <AntDesign
-                  name='appstore1'
+                  name='appstore-o'
                   size={24}
                   color='black'
                 />
@@ -89,9 +70,10 @@ export default function App() {
                 />
               ),
               tabBarShowLabel: false,
+              headerShown: false,
             }}
-            name='User'
-            component={NewsDetailScreen}
+            name='UserProfileTab'
+            component={UserProfileStackNavigation}
           />
         </Tab.Navigator>
       </NavigationContainer>
