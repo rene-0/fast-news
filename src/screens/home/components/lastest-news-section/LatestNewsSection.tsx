@@ -1,8 +1,8 @@
+import { News } from '@/ui/components/news'
 import { GenericStyles } from '@/ui/styles/generic-styles'
 import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { News } from './components/news/News'
 
 export function LatestNewsSection() {
   const navigation = useNavigation()
@@ -16,12 +16,36 @@ export function LatestNewsSection() {
       <ScrollView style={style.scrollableNewsContainer}>
         <Text style={style.latestNewsTitle}>Latest news</Text>
         <View style={style.newsContainer}>
-          <News onPress={navigateToNewsDetail} />
-          <News onPress={navigateToNewsDetail} />
-          <News onPress={navigateToNewsDetail} />
-          <News onPress={navigateToNewsDetail} />
-          <News onPress={navigateToNewsDetail} />
-          <News onPress={navigateToNewsDetail} />
+          <News.NewsRoot onPress={navigateToNewsDetail}>
+            <News.NewsImage />
+            <News.NewsTitle />
+            <News.NewsIcons />
+            <News.NewsDescription />
+          </News.NewsRoot>
+          <News.NewsRoot onPress={navigateToNewsDetail}>
+            <News.NewsImage />
+            <News.NewsTitle />
+            <News.NewsIcons />
+            <News.NewsDescription />
+          </News.NewsRoot>
+          <News.NewsRoot onPress={navigateToNewsDetail}>
+            <News.NewsImage />
+            <News.NewsTitle />
+            <News.NewsIcons />
+            <News.NewsDescription />
+          </News.NewsRoot>
+          <News.NewsRoot onPress={navigateToNewsDetail}>
+            <News.NewsImage />
+            <News.NewsTitle />
+            <News.NewsIcons />
+            <News.NewsDescription />
+          </News.NewsRoot>
+          <News.NewsRoot onPress={navigateToNewsDetail}>
+            <News.NewsImage />
+            <News.NewsTitle />
+            <News.NewsIcons />
+            <News.NewsDescription />
+          </News.NewsRoot>
         </View>
       </ScrollView>
       <LinearGradient
@@ -44,7 +68,6 @@ const style = StyleSheet.create({
   latestNewsTitle: {
     fontSize: 26,
     fontWeight: '700',
-    marginBottom: 5,
   },
   scrollableNewsContainer: {
     padding: 10,
