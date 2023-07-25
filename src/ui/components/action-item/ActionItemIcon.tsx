@@ -20,6 +20,6 @@ export function ActionItemIcon({ size = 24, color = 'black', name }: ActionItemI
 
 const styles = StyleSheet.create({
   actionItemIcon: {
-    marginRight: 20,
+    // marginRight: 20,
   },
 })

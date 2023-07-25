@@ -1,25 +1,28 @@
-import { Pressable, StyleSheet, View } from 'react-native'
+import { Pressable, PressableProps, StyleSheet, View, ViewStyle } from 'react-native'
 
 export type NewsProps = {
-  onPress: () => void
+  onPress?: () => void
   children: React.ReactNode
-}
+  style?: ViewStyle
+} & PressableProps
 
-export function NewsRoot({ onPress, children }: NewsProps) {
+export function NewsRoot({ onPress, children, style = {}, ...rest }: NewsProps) {
   return (
     <Pressable
       onPress={onPress}
-      style={style.newsContainer}
+      {...rest}
+      style={[defaultStyle.newsContainer, style]}
     >
-      <View style={style.descriptionContainer}>{children}</View>
+      <View style={defaultStyle.descriptionContainer}>{children}</View>
     </Pressable>
   )
 }
 
-const style = StyleSheet.create({
+const defaultStyle = StyleSheet.create({
   newsContainer: {
     flexDirection: 'row',
     marginTop: 15,
+    position: 'relative',
   },
   descriptionContainer: {
     flex: 1,

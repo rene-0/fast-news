@@ -38,5 +38,6 @@ export function NewsIcons() {
 const style = StyleSheet.create({
   iconLabelContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 })
