@@ -8,6 +8,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { NewsDetailStackNavigation } from './navigation/NewsDeatilStackNavigation'
 
 import { UserProfileStackNavigation } from './navigation/UserProfileStackNavigation'
+import { CategoriesScreen } from './screens/categories/CategoriesScreen'
 import { NewsDetailScreen } from './screens/news-detail/NewsDetailScreen'
 
 const Tab = createBottomTabNavigator()
@@ -34,6 +35,7 @@ export default function App() {
           />
           <Tab.Screen
             options={{
+              headerShown: false,
               tabBarIcon: () => (
                 <AntDesign
                   name='appstore-o'
@@ -44,7 +46,7 @@ export default function App() {
               tabBarShowLabel: false,
             }}
             name='Categories'
-            component={NewsDetailScreen}
+            component={CategoriesScreen}
           />
           <Tab.Screen
             options={{
