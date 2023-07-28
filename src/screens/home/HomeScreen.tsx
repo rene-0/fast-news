@@ -1,18 +1,19 @@
-import { StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet } from 'react-native'
 import { HeroSection } from './components/hero-section/HeroSection'
 import { LatestNewsSection } from './components/lastest-news-section/LatestNewsSection'
 
 export function HomeScreen() {
   return (
-    <View style={style.root}>
+    <ScrollView style={style.root}>
       <HeroSection />
       <LatestNewsSection />
-    </View>
+    </ScrollView>
   )
 }
 
 const style = StyleSheet.create({
   root: {
     flex: 1,
+    backgroundColor: 'white',
   },
 })

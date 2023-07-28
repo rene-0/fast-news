@@ -2,7 +2,7 @@ import { News } from '@/ui/components/news'
 import { GenericStyles } from '@/ui/styles/generic-styles'
 import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 export function LatestNewsSection() {
   const navigation = useNavigation()
@@ -13,8 +13,7 @@ export function LatestNewsSection() {
 
   return (
     <View style={style.latestNewsContainer}>
-      <ScrollView style={style.scrollableNewsContainer}>
-        <Text style={style.latestNewsTitle}>Latest news</Text>
+      <View style={style.scrollableNewsContainer}>
         <View style={style.newsContainer}>
           <News.NewsRoot onPress={navigateToNewsDetail}>
             <News.NewsImage />
@@ -47,8 +46,8 @@ export function LatestNewsSection() {
             <News.NewsDescription />
           </News.NewsRoot>
         </View>
-      </ScrollView>
-      <LinearGradient
+      </View>
+      <LinearGradient // Tem que sair daqui e ir para o componente parent
         style={style.viewMoreContainer}
         colors={['transparent', '#00000020', '#00000040', '#00000050', '#00000060']}
       >
@@ -65,13 +64,12 @@ const style = StyleSheet.create({
     flexDirection: 'column',
     position: 'relative',
   },
-  latestNewsTitle: {
-    fontSize: 26,
-    fontWeight: '700',
-  },
   scrollableNewsContainer: {
     padding: 10,
     position: 'relative',
+  },
+  newsContainer: {
+    marginBottom: 45,
   },
   viewMoreContainer: {
     width: '100%',
@@ -87,8 +85,5 @@ const style = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 4,
     color: 'white',
-  },
-  newsContainer: {
-    marginBottom: 45,
   },
 })
