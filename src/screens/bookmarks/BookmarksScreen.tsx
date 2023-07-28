@@ -1,7 +1,9 @@
 import { LabeledIcon } from '@/ui/components/labeled-icon/LabeledIcon'
 import { News } from '@/ui/components/news'
 import { SearchInput } from '@/ui/components/search-input/SearchInput'
-import { useNavigation } from '@react-navigation/native'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { setStatusBarStyle } from 'expo-status-bar'
+import { useEffect } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -14,6 +16,14 @@ export function BookmarksScreen() {
   const navigateToNewsDetail = () => {
     navigation.navigate('NewsDetailScreen', { newsId: 1 })
   }
+
+  const isFocused = useIsFocused()
+
+  useEffect(() => {
+    if (isFocused) {
+      setStatusBarStyle('dark')
+    }
+  }, [isFocused])
 
   return (
     <View style={[styles.bookmarksScreenContainer, safeAreaPadding]}>

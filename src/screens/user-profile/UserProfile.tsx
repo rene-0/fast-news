@@ -1,5 +1,7 @@
 import { ActionItem } from '@/ui/components/action-item'
-import { useNavigation } from '@react-navigation/native'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { setStatusBarStyle } from 'expo-status-bar'
+import { useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { LogOut } from './components/log-out/LogOut'
@@ -10,6 +12,14 @@ export function UserProfile() {
   const insets = useSafeAreaInsets()
 
   const safeAreaPadding = { paddingTop: insets.top }
+
+  const isFocused = useIsFocused()
+
+  useEffect(() => {
+    if (isFocused) {
+      setStatusBarStyle('dark')
+    }
+  }, [isFocused])
 
   return (
     <View style={[styles.userRoot, safeAreaPadding]}>
