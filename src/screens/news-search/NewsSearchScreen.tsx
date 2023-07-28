@@ -27,7 +27,10 @@ export function NewsSearchScreen() {
 
   return (
     <View style={[styles.newsSearchScreenContainer, safeAreaPadding]}>
-      <SearchInput style={styles.searchInput} />
+      <SearchInput
+        placeholder='Enter a title'
+        style={styles.searchInput}
+      />
       <ScrollView style={styles.newsSearchItemsContainer}>
         <News.NewsRoot onPress={navigateToNewsDetail}>
           <News.NewsImage />
@@ -93,5 +96,6 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     paddingHorizontal: 20,
+    marginBottom: 10,
   },
 })

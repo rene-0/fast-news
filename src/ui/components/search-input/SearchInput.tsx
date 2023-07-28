@@ -6,14 +6,16 @@ type SearchInputProps = {
   onChangeText?: ((text: string) => void) | undefined
   onPress?: (((event: GestureResponderEvent) => void) & ((event: GestureResponderEvent) => void)) | null | undefined
   style?: StyleProp<ViewStyle>
+  placeholder?: string | undefined
 }
 
-export function SearchInput({ onChangeText, onPress, style }: SearchInputProps) {
+export function SearchInput({ onChangeText, onPress, style, placeholder }: SearchInputProps) {
   return (
     <View style={[defaultStyles.searchContainer, style]}>
       <TextInput
         onChangeText={onChangeText}
         style={defaultStyles.searchInput}
+        placeholder={placeholder}
       />
       <Button
         onPress={onPress}
