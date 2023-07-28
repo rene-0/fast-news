@@ -32,7 +32,6 @@ export function Favorite() {
             iconName='close'
             label='Back'
             color='black'
-            textShadow={false}
             size={26}
             style={{ flexDirection: 'column' }}
           />
@@ -45,7 +44,6 @@ export function Favorite() {
             iconName='delete'
             label='Remove favorite'
             color='white'
-            textShadow={false}
             size={26}
             style={{ flexDirection: 'column' }}
           />

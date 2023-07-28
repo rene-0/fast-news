@@ -1,5 +1,4 @@
 import { News } from '@/ui/components/news'
-import { GenericStyles } from '@/ui/styles/generic-styles'
 import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { StyleSheet, Text, View } from 'react-native'
@@ -51,7 +50,7 @@ export function LatestNewsSection() {
         style={style.viewMoreContainer}
         colors={['transparent', '#00000020', '#00000040', '#00000050', '#00000060']}
       >
-        <Text style={[style.viewMore, GenericStyles.textShadow]}>View more</Text>
+        <Text style={style.viewMore}>View more</Text>
       </LinearGradient>
     </View>
   )

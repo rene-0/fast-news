@@ -3,6 +3,7 @@ import { AntDesign } from '@expo/vector-icons'
 import { StyleSheet, TextInput, View } from 'react-native'
 
 export function CategorySearch() {
+  //Remover usar o componente genérico search input
   return (
     <View style={styles.categoriesSearchContainer}>
       <TextInput style={styles.categorySearchInput} />

@@ -8,8 +8,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { NewsDetailStackNavigation } from './navigation/NewsDeatilStackNavigation'
 
 import { UserProfileStackNavigation } from './navigation/UserProfileStackNavigation'
+import { BookmarksScreen } from './screens/bookmarks/BookmarksScreen'
 import { CategoriesScreen } from './screens/categories/CategoriesScreen'
-import { NewsDetailScreen } from './screens/news-detail/NewsDetailScreen'
 
 const Tab = createBottomTabNavigator()
 
@@ -50,6 +50,7 @@ export default function App() {
           />
           <Tab.Screen
             options={{
+              headerShown: false,
               tabBarIcon: () => (
                 <AntDesign
                   name='book'
@@ -59,8 +60,8 @@ export default function App() {
               ),
               tabBarShowLabel: false,
             }}
-            name='Bookmark'
-            component={NewsDetailScreen}
+            name='Bookmarks'
+            component={BookmarksScreen}
           />
           <Tab.Screen
             options={{
