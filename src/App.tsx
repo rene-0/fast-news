@@ -9,7 +9,7 @@ import { NewsDetailStackNavigation } from './navigation/NewsDeatilStackNavigatio
 
 import { UserProfileStackNavigation } from './navigation/UserProfileStackNavigation'
 import { BookmarksScreen } from './screens/bookmarks/BookmarksScreen'
-import { CategoriesScreen } from './screens/categories/CategoriesScreen'
+import { NewsSearchScreen } from './screens/news-search/NewsSearchScreen'
 
 const Tab = createBottomTabNavigator()
 
@@ -21,14 +21,15 @@ export default function App() {
           <Tab.Screen
             options={{
               headerShown: false,
-              tabBarIcon: () => (
+              tabBarIcon: ({ focused }) => (
                 <Octicons
                   name='home'
                   size={24}
-                  color='black'
+                  color={focused ? 'white' : 'black'}
                 />
               ),
               tabBarShowLabel: false,
+              tabBarActiveBackgroundColor: '#161616',
             }}
             name='HomeTab'
             component={NewsDetailStackNavigation}
@@ -36,44 +37,47 @@ export default function App() {
           <Tab.Screen
             options={{
               headerShown: false,
-              tabBarIcon: () => (
+              tabBarIcon: ({ focused }) => (
                 <AntDesign
                   name='appstore-o'
                   size={24}
-                  color='black'
+                  color={focused ? 'white' : 'black'}
                 />
               ),
               tabBarShowLabel: false,
+              tabBarActiveBackgroundColor: '#161616',
             }}
-            name='Categories'
-            component={CategoriesScreen}
+            name='NewsSearch'
+            component={NewsSearchScreen}
           />
           <Tab.Screen
             options={{
               headerShown: false,
-              tabBarIcon: () => (
+              tabBarIcon: ({ focused }) => (
                 <AntDesign
                   name='book'
                   size={24}
-                  color='black'
+                  color={focused ? 'white' : 'black'}
                 />
               ),
               tabBarShowLabel: false,
+              tabBarActiveBackgroundColor: '#161616',
             }}
             name='Bookmarks'
             component={BookmarksScreen}
           />
           <Tab.Screen
             options={{
-              tabBarIcon: () => (
+              headerShown: false,
+              tabBarIcon: ({ focused }) => (
                 <FontAwesome
                   name='user-o'
                   size={24}
-                  color='black'
+                  color={focused ? 'white' : 'black'}
                 />
               ),
               tabBarShowLabel: false,
-              headerShown: false,
+              tabBarActiveBackgroundColor: '#161616',
             }}
             name='UserProfileTab'
             component={UserProfileStackNavigation}
