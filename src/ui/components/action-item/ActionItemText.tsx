@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
-import { StyleSheet, Text, TextProps } from 'react-native'
+import { StyleSheet, TextProps } from 'react-native'
+import { AppText } from '../app-text/AppText'
 
 type ActionItemTextProps = {
   children: ReactNode
@@ -7,12 +8,12 @@ type ActionItemTextProps = {
 
 export function ActionItemText({ children, ...rest }: ActionItemTextProps) {
   return (
-    <Text
+    <AppText
       {...rest}
       style={[styles.actionItemText, rest.style]}
     >
       {children}
-    </Text>
+    </AppText>
   )
 }
 

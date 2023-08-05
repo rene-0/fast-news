@@ -1,7 +1,8 @@
+import { RootView } from '@/ui/components/root-view/RootView'
 import { useIsFocused } from '@react-navigation/native'
 import { setStatusBarStyle } from 'expo-status-bar'
 import { useEffect } from 'react'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet } from 'react-native'
 import { NewsComment } from './components/news-comments/NewsComment'
 import { NewsContent } from './components/news-content/NewsContent'
 import { NewsHeader } from './components/news-header/NewsHeader'
@@ -19,11 +20,11 @@ export function NewsDetailScreen() {
   return (
     <ScrollView style={style.newsDetailRoot}>
       <NewsImageCarousel />
-      <View style={style.contentContainer}>
+      <RootView style={style.contentContainer}>
         <NewsHeader />
         <NewsContent />
         <NewsComment />
-      </View>
+      </RootView>
     </ScrollView>
   )
 }
@@ -34,6 +35,7 @@ const style = StyleSheet.create({
     backgroundColor: 'white',
   },
   contentContainer: {
+    paddingTop: 10,
     padding: 10,
   },
 })

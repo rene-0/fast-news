@@ -1,29 +1,29 @@
 import { ActionItem } from '@/ui/components/action-item'
+import { AppText } from '@/ui/components/app-text/AppText'
+import { RootView } from '@/ui/components/root-view/RootView'
+import { useTheme } from '@/ui/hooks/useTheme'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { setStatusBarStyle } from 'expo-status-bar'
 import { useEffect } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { StyleSheet, View } from 'react-native'
 import { LogOut } from './components/log-out/LogOut'
 import { UserInfo } from './components/user-info/UserInfo'
 
 export function UserProfile() {
   const navigation = useNavigation()
-  const insets = useSafeAreaInsets()
-
-  const safeAreaPadding = { paddingTop: insets.top }
+  const { statusbarColor } = useTheme()
 
   const isFocused = useIsFocused()
 
   useEffect(() => {
     if (isFocused) {
-      setStatusBarStyle('dark')
+      setStatusBarStyle(statusbarColor)
     }
   }, [isFocused])
 
   return (
-    <View style={[styles.userRoot, safeAreaPadding]}>
-      <Text style={styles.textTitle}>User profile</Text>
+    <RootView style={styles.userRoot}>
+      <AppText style={styles.textTitle}>User profile</AppText>
       <UserInfo />
       <View>
         <ActionItem.ActionItemRoot onPress={() => navigation.navigate('UserSetting')}>
@@ -43,18 +43,17 @@ export function UserProfile() {
         </ActionItem.ActionItemRoot>
       </View>
       <LogOut />
-    </View>
+    </RootView>
   )
 }
 
 const styles = StyleSheet.create({
   userRoot: {
     flex: 1,
-    backgroundColor: 'white',
     paddingHorizontal: 20,
   },
   textTitle: {
-    fontSize: 22,
+    fontSize: 26,
     fontWeight: '600',
     marginBottom: 15,
   },

@@ -1,4 +1,5 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { AppText } from '@/ui/components/app-text/AppText'
+import { Image, StyleSheet, View } from 'react-native'
 
 export function Comment() {
   return (
@@ -10,12 +11,12 @@ export function Comment() {
         style={styles.userImage}
       />
       <View style={styles.textContainer}>
-        <Text style={styles.userName}>User name</Text>
+        <AppText style={styles.userName}>User name</AppText>
         <View style={styles.userCommentContainer}>
-          <Text style={styles.userComment}>
+          <AppText style={styles.userComment}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione mollitia cupiditate qui provident commodi magni porro omnis distinctio vitae hic voluptate, iure illum
             eaque, voluptatem sapiente sed earum laborum numquam?
-          </Text>
+          </AppText>
         </View>
       </View>
     </View>
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
   commentRoot: {
     flexDirection: 'row',
     flex: 1,
+    marginBottom: 10,
   },
   userImage: {
     height: 60,

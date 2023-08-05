@@ -1,3 +1,4 @@
+import { useTheme } from '@/ui/hooks/useTheme'
 import { AntDesign } from '@expo/vector-icons'
 import { StyleSheet, View } from 'react-native'
 
@@ -7,25 +8,27 @@ type DotPaginationProps = {
 }
 
 export function DotPagination({ activeIndex, numberOfDots }: DotPaginationProps) {
+  const { appTheme, color } = useTheme()
+
   return (
     <View style={styles.dotPaginationContainer}>
       <AntDesign
         name='left'
         size={7}
-        color='black'
+        color={color}
         style={styles.arrow}
       />
       {new Array(numberOfDots).fill(0).map((_, index) => (
         <View
           key={index}
-          style={[styles.dot, index === activeIndex ? styles.activeDot : {}]}
+          style={[styles.dot, index === activeIndex ? { backgroundColor: appTheme === 'light' ? '#161616' : '#ffffff' } : {}]}
         />
       ))}
       <AntDesign
         style={styles.arrow}
         name='right'
         size={7}
-        color='black'
+        color={color}
       />
     </View>
   )
@@ -47,7 +50,8 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   activeDot: {
-    backgroundColor: '#161616',
+    backgroundColor: 'white',
+    // backgroundColor: '#161616',
   },
   arrow: {
     marginRight: 5,

@@ -17,14 +17,11 @@ export function SearchInput({ onChangeText, onPress, style, placeholder }: Searc
         style={defaultStyles.searchInput}
         placeholder={placeholder}
       />
-      <Button
-        onPress={onPress}
-        android_ripple={{ color: '#ffffff' }}
-      >
+      <Button onPress={onPress}>
         <AntDesign
           name='search1'
           size={18}
-          color='white'
+          color='black'
         />
       </Button>
     </View>

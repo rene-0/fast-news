@@ -1,3 +1,4 @@
+import { useTheme } from '@/ui/hooks/useTheme'
 import React, { useRef, useState } from 'react'
 import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native'
 import { DotPagination } from './components/dot-pagination/DotPagination'
@@ -11,6 +12,8 @@ const containerMaxWidth = 600
 export function HeroSection() {
   const [currentHeroNewsItemIndex, setCurrentHeroNewsItemIndex] = useState(0)
   const { width: windowWidth } = useWindowDimensions()
+
+  const { backgroundColor } = useTheme()
 
   const paddingWhitespaceWidth = horizontalPaddingWidth * 2
   const marginWhitespaceWidth = horizontalMarginWidth * 2
@@ -28,7 +31,6 @@ export function HeroSection() {
     }
   }
 
-  const heroDescriptionContainerRef = useRef<ScrollView | null>(null)
   const heroImagesContainerRef = useRef<ScrollView | null>(null)
 
   return (
@@ -44,13 +46,12 @@ export function HeroSection() {
           'https://dynaimage.cdn.cnn.com/cnn/digital-images/org/ff9cc4af-d583-4cad-8205-a970b8faa9c2.JPG',
         ]}
       />
-      <View style={styles.heroDescriptionContainer}>
+      <View style={[styles.heroDescriptionContainer, { backgroundColor }]}>
         <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           pagingEnabled
           onMomentumScrollEnd={setScrollItemCurrentIndex}
-          ref={(ref) => (heroDescriptionContainerRef.current = ref)}
         >
           <HeroNewsItem width={heroNewsItemWidth} />
           <HeroNewsItem width={heroNewsItemWidth} />
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
   hero: {
     position: 'relative',
     zIndex: 1,
-    marginBottom: 50,
+    marginBottom: 40,
   },
   heroImage: {
     height: 300,

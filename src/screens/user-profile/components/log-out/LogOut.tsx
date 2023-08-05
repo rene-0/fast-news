@@ -1,11 +1,14 @@
 import { Button } from '@/ui/components/button/Button'
+import { useTheme } from '@/ui/hooks/useTheme'
 import { StyleSheet, Text, View } from 'react-native'
 
 export function LogOut() {
+  const { detailColor } = useTheme()
+
   return (
     <View style={styles.logOutContainer}>
       <Button
-        android_ripple={{ color: '#5f5f5f' }}
+        android_ripple={{ color: detailColor }}
         style={styles.logOutButton}
       >
         <Text style={styles.logOutText}>Log out</Text>

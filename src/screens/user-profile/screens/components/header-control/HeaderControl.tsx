@@ -1,7 +1,9 @@
+import { AppText } from '@/ui/components/app-text/AppText'
 import { Button } from '@/ui/components/button/Button'
+import { useTheme } from '@/ui/hooks/useTheme'
 import { AntDesign } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 type BackButtonProps = {
   titleText: string
@@ -9,6 +11,7 @@ type BackButtonProps = {
 
 export function HeaderControl({ titleText }: BackButtonProps) {
   const navigation = useNavigation()
+  const { color } = useTheme()
 
   return (
     <View style={styles.headControlContainer}>
@@ -20,10 +23,10 @@ export function HeaderControl({ titleText }: BackButtonProps) {
         <AntDesign
           name='arrowleft'
           size={24}
-          color='black'
+          color={color}
         />
       </Button>
-      <Text style={styles.textTitle}>{titleText}</Text>
+      <AppText style={styles.textTitle}>{titleText}</AppText>
     </View>
   )
 }
@@ -44,10 +47,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   textTitle: {
-    color: 'black',
     fontSize: 22,
     fontWeight: '600',
     flex: 1,
-    textAlign: 'center',
+    marginLeft: 20,
   },
 })

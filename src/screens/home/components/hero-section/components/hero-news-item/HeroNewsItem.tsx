@@ -1,5 +1,6 @@
-import { LabeledIcon } from '@/ui/components/labeled-icon/LabeledIcon'
-import { StyleSheet, Text, View } from 'react-native'
+import { AppText } from '@/ui/components/app-text/AppText'
+import { News } from '@/ui/components/news'
+import { StyleSheet, View } from 'react-native'
 
 type HeroNewsItemProps = {
   width: number
@@ -8,36 +9,12 @@ type HeroNewsItemProps = {
 export function HeroNewsItem({ width }: HeroNewsItemProps) {
   return (
     <View style={[styles.heroNewsItemContainer, { width }]}>
-      <Text style={styles.heroTitle}>Home Tab</Text>
-      <View style={styles.iconLabelContainer}>
-        <LabeledIcon
-          iconName='eye'
-          label='366'
-          color='black'
-        />
-        <LabeledIcon
-          iconName='clockcircle'
-          label='13/12/1998'
-          color='black'
-          size={14}
-        />
-        <LabeledIcon
-          iconName='message1'
-          label='366'
-          color='black'
-          size={14}
-        />
-        <LabeledIcon
-          iconName='star'
-          label='89'
-          color='black'
-          size={14}
-        />
-      </View>
-      <Text style={styles.heroDescription}>
+      <AppText style={styles.heroTitle}>Home Tab</AppText>
+      <News.NewsIcons />
+      <AppText style={styles.heroDescription}>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero, recusandae blanditiis unde odio sapiente ipsum neque quibusdam? Sapiente consequatur facilis quam
         pariatur, totam odit mollitia sit nam ducimus officia ipsa?
-      </Text>
+      </AppText>
     </View>
   )
 }
