@@ -5,11 +5,13 @@ import { useTheme } from '@/ui/hooks/useTheme'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { setStatusBarStyle } from 'expo-status-bar'
 import React, { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ScrollView, StyleSheet } from 'react-native'
 
 export function NewsSearchScreen() {
   const navigation = useNavigation()
   const { statusbarColor } = useTheme()
+  const { t } = useTranslation()
 
   const navigateToNewsDetail = () => {
     navigation.navigate('NewsDetailScreen', { newsId: 1 })
@@ -26,7 +28,7 @@ export function NewsSearchScreen() {
   return (
     <RootView style={styles.newsSearchScreenContainer}>
       <SearchInput
-        placeholder='Enter a title'
+        placeholder={t('Search a title')}
         style={styles.searchInput}
       />
       <ScrollView style={styles.newsSearchItemsContainer}>

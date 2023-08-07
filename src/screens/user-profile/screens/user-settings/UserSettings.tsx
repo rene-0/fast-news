@@ -6,18 +6,22 @@ import { Picker } from '@react-native-picker/picker'
 import { useIsFocused } from '@react-navigation/native'
 import { setStatusBarStyle } from 'expo-status-bar'
 import { useEffect, useRef, useState } from 'react'
+
+import i18n from 'i18next'
+import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { useRecoilState } from 'recoil'
 import { HeaderControl } from '../components/header-control/HeaderControl'
 
 export function UserSettings() {
   const [appConfig, setAppConfig] = useRecoilState(appConfigStates)
-  const [selectedAppLanguage, setSelectedAppLanguage] = useState()
+  const [selectedAppLanguage, setSelectedAppLanguage] = useState<string>('en')
 
   const { statusbarColor } = useTheme()
   const isFocused = useIsFocused()
+  const { t } = useTranslation()
 
-  const pickerRef = useRef<Picker<undefined> | null>()
+  const pickerRef = useRef<Picker<string> | null>()
 
   const isLightTheme = appConfig.appTheme === 'light'
 
@@ -33,6 +37,11 @@ export function UserSettings() {
     }
   }
 
+  const handleChangeLanguage = (appLanguage: string) => {
+    setSelectedAppLanguage(appLanguage)
+    i18n.changeLanguage(appLanguage)
+  }
+
   useEffect(() => {
     if (isFocused) {
       setStatusBarStyle(statusbarColor)
@@ -41,28 +50,28 @@ export function UserSettings() {
 
   return (
     <RootView style={styles.userSettingsContainer}>
-      <HeaderControl titleText='User Settings' />
+      <HeaderControl titleText={t('User settings')} />
       <View style={styles.userSettingContentContainer}>
         <ActionItem.ActionItemRoot onPress={handleToggleTheme}>
           <ActionItem.ActionItemIcon name={isLightTheme ? 'infocirlceo' : 'infocirlce'} />
-          <ActionItem.ActionItemText>{isLightTheme ? 'Light Theme' : 'Dark Theme'}</ActionItem.ActionItemText>
+          <ActionItem.ActionItemText>{t(`${isLightTheme ? 'Light' : 'Dark'} Theme`)}</ActionItem.ActionItemText>
         </ActionItem.ActionItemRoot>
         <ActionItem.ActionItemRoot onPress={openAppLanguagePicker}>
           <ActionItem.ActionItemIcon name='filetext1' />
-          <ActionItem.ActionItemText>App language</ActionItem.ActionItemText>
+          <ActionItem.ActionItemText>{t('App language')}</ActionItem.ActionItemText>
           <Picker
             ref={(ref) => (pickerRef.current = ref)}
             selectedValue={selectedAppLanguage}
-            onValueChange={(appLanguage) => setSelectedAppLanguage(appLanguage)}
+            onValueChange={handleChangeLanguage}
             style={styles.appLanguagePicker}
           >
             <Picker.Item
-              label='Portuguese'
-              value='portuguese'
+              label={t('Portuguese')}
+              value='ptBr'
             />
             <Picker.Item
-              label='English'
-              value='english'
+              label={t('English')}
+              value='en'
             />
           </Picker>
         </ActionItem.ActionItemRoot>

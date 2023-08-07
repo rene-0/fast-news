@@ -1,4 +1,5 @@
 import { Button } from '@/ui/components/button/Button'
+import { useTheme } from '@/ui/hooks/useTheme'
 import { AntDesign } from '@expo/vector-icons'
 import { GestureResponderEvent, StyleProp, StyleSheet, TextInput, View, ViewStyle } from 'react-native'
 
@@ -10,6 +11,7 @@ type SearchInputProps = {
 }
 
 export function SearchInput({ onChangeText, onPress, style, placeholder }: SearchInputProps) {
+  const { appTheme } = useTheme()
   return (
     <View style={[defaultStyles.searchContainer, style]}>
       <TextInput
@@ -21,7 +23,7 @@ export function SearchInput({ onChangeText, onPress, style, placeholder }: Searc
         <AntDesign
           name='search1'
           size={18}
-          color='black'
+          color={appTheme === 'light' ? 'white' : 'black'}
         />
       </Button>
     </View>

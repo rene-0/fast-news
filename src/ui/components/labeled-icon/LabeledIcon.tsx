@@ -20,7 +20,7 @@ export function LabeledIcon({ label, iconName, color, size = 18, style = {} }: L
         size={size}
         color={color || themeColor}
       />
-      <Text style={[{ color }, defaultStyle.iconLabel]}>{label}</Text>
+      <Text style={[{ color: color || themeColor }, defaultStyle.iconLabel]}>{label}</Text>
     </View>
   )
 }

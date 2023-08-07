@@ -1,9 +1,11 @@
 import { Button } from '@/ui/components/button/Button'
 import { useTheme } from '@/ui/hooks/useTheme'
+import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View } from 'react-native'
 
 export function LogOut() {
   const { detailColor } = useTheme()
+  const { t } = useTranslation()
 
   return (
     <View style={styles.logOutContainer}>
@@ -11,7 +13,7 @@ export function LogOut() {
         android_ripple={{ color: detailColor }}
         style={styles.logOutButton}
       >
-        <Text style={styles.logOutText}>Log out</Text>
+        <Text style={styles.logOutText}>{t('Log out')}</Text>
       </Button>
     </View>
   )

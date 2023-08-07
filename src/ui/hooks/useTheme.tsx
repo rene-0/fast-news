@@ -18,7 +18,7 @@ export function useTheme(): ThemeConfig {
     appTheme,
     statusbarColor: isLight ? 'dark' : 'light',
     color: isLight ? 'black' : 'white',
-    backgroundColor: isLight ? 'white' : '#161616',
+    backgroundColor: isLight ? '#ffffff' : '#161616',
     detailColor: isLight ? '#16161620' : '#ffffff20',
   }
 }

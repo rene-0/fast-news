@@ -1,14 +1,17 @@
 import { Button } from '@/ui/components/button/Button'
+import { useTranslation } from 'react-i18next'
 import { StyleSheet, TextInput, View } from 'react-native'
 
 export function CommentInput() {
+  const { t } = useTranslation()
+
   return (
     <View style={styles.commentInputContainer}>
       <TextInput
         multiline
         style={styles.commentInput}
       />
-      <Button>Comment</Button>
+      <Button>{t('Comment')}</Button>
     </View>
   )
 }

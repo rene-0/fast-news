@@ -8,13 +8,13 @@ import { LatestNewsSection } from './components/lastest-news-section/LatestNewsS
 
 export function HomeScreen() {
   const isFocused = useIsFocused()
-  const { backgroundColor, statusbarColor } = useTheme()
+  const { backgroundColor } = useTheme()
 
   useEffect(() => {
     if (isFocused) {
-      setStatusBarStyle(statusbarColor)
+      setStatusBarStyle('light')
     }
-  }, [isFocused, statusbarColor])
+  }, [isFocused])
 
   return (
     <ScrollView style={[style.root, { backgroundColor }]}>

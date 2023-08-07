@@ -1,12 +1,15 @@
 import { RootView } from '@/ui/components/root-view/RootView'
+import { useTranslation } from 'react-i18next'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { HeaderControl } from '../components/header-control/HeaderControl'
 import { Favorite } from './components/favorite-news/FavoriteNews'
 
 export function FavoriteNews() {
+  const { t } = useTranslation()
+
   return (
     <RootView style={styles.favoriteNewsContainer}>
-      <HeaderControl titleText='Favorite News' />
+      <HeaderControl titleText={t('Favorite news')} />
       <ScrollView style={styles.favoriteContentContainer}>
         <View>
           <Favorite />

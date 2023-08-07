@@ -2,10 +2,12 @@ import { AppText } from '@/ui/components/app-text/AppText'
 import { News } from '@/ui/components/news'
 import { RootView } from '@/ui/components/root-view/RootView'
 import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 
 export function LatestNewsSection() {
   const navigation = useNavigation()
+  const { t } = useTranslation()
 
   const navigateToNewsDetail = () => {
     navigation.navigate('NewsDetailScreen', { newsId: 1 })
@@ -48,7 +50,7 @@ export function LatestNewsSection() {
         </View>
       </View>
       <View style={style.viewMoreContainer}>
-        <AppText style={style.viewMore}>View more</AppText>
+        <AppText style={style.viewMore}>{t('View more')}</AppText>
       </View>
     </RootView>
   )

@@ -13,7 +13,7 @@ export function HeroSection() {
   const [currentHeroNewsItemIndex, setCurrentHeroNewsItemIndex] = useState(0)
   const { width: windowWidth } = useWindowDimensions()
 
-  const { backgroundColor } = useTheme()
+  const { backgroundColor, appTheme } = useTheme()
 
   const paddingWhitespaceWidth = horizontalPaddingWidth * 2
   const marginWhitespaceWidth = horizontalMarginWidth * 2
@@ -46,7 +46,7 @@ export function HeroSection() {
           'https://dynaimage.cdn.cnn.com/cnn/digital-images/org/ff9cc4af-d583-4cad-8205-a970b8faa9c2.JPG',
         ]}
       />
-      <View style={[styles.heroDescriptionContainer, { backgroundColor }]}>
+      <View style={[styles.heroDescriptionContainer, { ...(appTheme === 'dark' ? styles.heroDescriptionContainerDarkTheme : {}), backgroundColor }]}>
         <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
@@ -89,5 +89,9 @@ const styles = StyleSheet.create({
     elevation: 12,
     marginHorizontal: horizontalMarginWidth,
     maxWidth: 600,
+  },
+  heroDescriptionContainerDarkTheme: {
+    elevation: 1,
+    shadowColor: 'white',
   },
 })

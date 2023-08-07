@@ -7,11 +7,13 @@ import { useTheme } from '@/ui/hooks/useTheme'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { setStatusBarStyle } from 'expo-status-bar'
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ScrollView, StyleSheet, View } from 'react-native'
 
 export function BookmarksScreen() {
   const navigation = useNavigation()
   const { statusbarColor } = useTheme()
+  const { t } = useTranslation()
 
   const navigateToNewsDetail = () => {
     navigation.navigate('NewsDetailScreen', { newsId: 1 })
@@ -28,15 +30,18 @@ export function BookmarksScreen() {
   return (
     <RootView style={styles.bookmarksScreenContainer}>
       <View style={styles.headContainer}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+        <View style={styles.headLabeledIcons}>
           <LabeledIcon
             iconName='book'
             label=''
             size={24}
           />
-          <AppText style={styles.screenTitle}>Bookmarked news</AppText>
+          <AppText style={styles.screenTitle}>{t('Bookmarked news')}</AppText>
         </View>
-        <SearchInput onChangeText={(text) => console.log('pressed', text)} />
+        <SearchInput
+          placeholder={t('Search a title')}
+          onChangeText={(text) => console.log('pressed', text)}
+        />
       </View>
       <ScrollView style={styles.newsContainer}>
         <News.NewsRoot onPress={navigateToNewsDetail}>
@@ -140,5 +145,10 @@ const styles = StyleSheet.create({
   screenTitle: {
     fontSize: 28,
     fontWeight: '600',
+  },
+  headLabeledIcons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 })

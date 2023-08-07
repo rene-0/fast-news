@@ -5,6 +5,7 @@ import { useTheme } from '@/ui/hooks/useTheme'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { setStatusBarStyle } from 'expo-status-bar'
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { LogOut } from './components/log-out/LogOut'
 import { UserInfo } from './components/user-info/UserInfo'
@@ -12,6 +13,7 @@ import { UserInfo } from './components/user-info/UserInfo'
 export function UserProfile() {
   const navigation = useNavigation()
   const { statusbarColor } = useTheme()
+  const { t } = useTranslation()
 
   const isFocused = useIsFocused()
 
@@ -23,22 +25,22 @@ export function UserProfile() {
 
   return (
     <RootView style={styles.userRoot}>
-      <AppText style={styles.textTitle}>User profile</AppText>
+      <AppText style={styles.textTitle}>{t('User profile')}</AppText>
       <UserInfo />
       <View>
         <ActionItem.ActionItemRoot onPress={() => navigation.navigate('UserSetting')}>
           <ActionItem.ActionItemIcon name='setting' />
-          <ActionItem.ActionItemText>User settings</ActionItem.ActionItemText>
+          <ActionItem.ActionItemText>{t('User settings')}</ActionItem.ActionItemText>
           <ActionItem.ActionItemIcon name='right' />
         </ActionItem.ActionItemRoot>
         <ActionItem.ActionItemRoot onPress={() => navigation.navigate('FavoriteNews')}>
           <ActionItem.ActionItemIcon name='staro' />
-          <ActionItem.ActionItemText>Favorite news</ActionItem.ActionItemText>
+          <ActionItem.ActionItemText>{t('Favorite news')}</ActionItem.ActionItemText>
           <ActionItem.ActionItemIcon name='right' />
         </ActionItem.ActionItemRoot>
         <ActionItem.ActionItemRoot onPress={() => navigation.navigate('NewsHistory')}>
           <ActionItem.ActionItemIcon name='profile' />
-          <ActionItem.ActionItemText>History</ActionItem.ActionItemText>
+          <ActionItem.ActionItemText>{t('History')}</ActionItem.ActionItemText>
           <ActionItem.ActionItemIcon name='right' />
         </ActionItem.ActionItemRoot>
       </View>
