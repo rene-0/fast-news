@@ -1,3 +1,4 @@
+import { useTheme } from '@/ui/hooks/useTheme'
 import { AntDesign } from '@expo/vector-icons'
 import { StyleSheet, Text, View, ViewStyle } from 'react-native'
 
@@ -9,13 +10,15 @@ type LabeledIconProps = {
   style?: ViewStyle
 }
 
-export function LabeledIcon({ label, iconName, color = 'white', size = 18, style = {} }: LabeledIconProps) {
+export function LabeledIcon({ label, iconName, color, size = 18, style = {} }: LabeledIconProps) {
+  const { color: themeColor } = useTheme()
+
   return (
     <View style={[defaultStyle.iconContainer, style]}>
       <AntDesign
         name={iconName}
         size={size}
-        color={color}
+        color={color || themeColor}
       />
       <Text style={[{ color }, defaultStyle.iconLabel]}>{label}</Text>
     </View>
