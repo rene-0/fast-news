@@ -15,7 +15,7 @@ import { HeaderControl } from '../components/header-control/HeaderControl'
 
 export function UserSettings() {
   const [appConfig, setAppConfig] = useRecoilState(appConfigStates)
-  const [selectedAppLanguage, setSelectedAppLanguage] = useState<string>('en')
+  const [selectedAppLanguage, setSelectedAppLanguage] = useState<string>(i18n.language)
 
   const { statusbarColor } = useTheme()
   const isFocused = useIsFocused()
