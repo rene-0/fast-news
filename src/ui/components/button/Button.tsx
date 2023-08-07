@@ -1,5 +1,7 @@
+import { useTheme } from '@/ui/hooks/useTheme'
 import React from 'react'
-import { GestureResponderEvent, Pressable, PressableProps, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native'
+import { GestureResponderEvent, Pressable, PressableProps, StyleProp, StyleSheet, ViewStyle } from 'react-native'
+import { AppText } from '../app-text/AppText'
 
 type ButtonProp = {
   children: React.ReactNode
@@ -8,13 +10,16 @@ type ButtonProp = {
 } & PressableProps
 
 export function Button({ children, style, onPress, ...rest }: ButtonProp) {
+  const { appTheme, detailColor } = useTheme()
+
   return (
     <Pressable
       onPress={onPress}
-      style={[defaultStyles.buttonRoot, style]}
+      style={[defaultStyles.buttonRoot, { backgroundColor: appTheme === 'light' ? '#161616' : '#ffffff' }, style]}
       {...rest}
+      android_ripple={{ color: detailColor }}
     >
-      <Text style={defaultStyles.buttonText}>{children}</Text>
+      <AppText style={{ color: appTheme === 'light' ? 'white' : '#161616' }}>{children}</AppText>
     </Pressable>
   )
 }
@@ -22,11 +27,7 @@ export function Button({ children, style, onPress, ...rest }: ButtonProp) {
 const defaultStyles = StyleSheet.create({
   buttonRoot: {
     padding: 10,
-    backgroundColor: '#161616',
     borderRadius: 5,
     alignItems: 'center',
-  },
-  buttonText: {
-    color: 'white',
   },
 })

@@ -1,17 +1,17 @@
 import { News } from '@/ui/components/news'
+import { RootView } from '@/ui/components/root-view/RootView'
 import { SearchInput } from '@/ui/components/search-input/SearchInput'
+import { useTheme } from '@/ui/hooks/useTheme'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { setStatusBarStyle } from 'expo-status-bar'
 import React, { useEffect } from 'react'
-import { ScrollView, StyleSheet, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useTranslation } from 'react-i18next'
+import { ScrollView, StyleSheet } from 'react-native'
 
 export function NewsSearchScreen() {
-  const insets = useSafeAreaInsets()
-
-  const safeAreaPadding = { paddingTop: insets.top }
-
   const navigation = useNavigation()
+  const { statusbarColor } = useTheme()
+  const { t } = useTranslation()
 
   const navigateToNewsDetail = () => {
     navigation.navigate('NewsDetailScreen', { newsId: 1 })
@@ -21,14 +21,14 @@ export function NewsSearchScreen() {
 
   useEffect(() => {
     if (isFocused) {
-      setStatusBarStyle('dark')
+      setStatusBarStyle(statusbarColor)
     }
-  }, [isFocused])
+  }, [isFocused, statusbarColor])
 
   return (
-    <View style={[styles.newsSearchScreenContainer, safeAreaPadding]}>
+    <RootView style={styles.newsSearchScreenContainer}>
       <SearchInput
-        placeholder='Enter a title'
+        placeholder={t('Search a title')}
         style={styles.searchInput}
       />
       <ScrollView style={styles.newsSearchItemsContainer}>
@@ -81,14 +81,13 @@ export function NewsSearchScreen() {
           <News.NewsDescription />
         </News.NewsRoot>
       </ScrollView>
-    </View>
+    </RootView>
   )
 }
 
 const styles = StyleSheet.create({
   newsSearchScreenContainer: {
     flex: 1,
-    backgroundColor: 'white',
   },
   newsSearchItemsContainer: {
     flex: 1,

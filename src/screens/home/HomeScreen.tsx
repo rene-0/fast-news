@@ -1,3 +1,4 @@
+import { useTheme } from '@/ui/hooks/useTheme'
 import { useIsFocused } from '@react-navigation/native'
 import { setStatusBarStyle } from 'expo-status-bar'
 import { useEffect } from 'react'
@@ -7,6 +8,7 @@ import { LatestNewsSection } from './components/lastest-news-section/LatestNewsS
 
 export function HomeScreen() {
   const isFocused = useIsFocused()
+  const { backgroundColor } = useTheme()
 
   useEffect(() => {
     if (isFocused) {
@@ -15,7 +17,7 @@ export function HomeScreen() {
   }, [isFocused])
 
   return (
-    <ScrollView style={style.root}>
+    <ScrollView style={[style.root, { backgroundColor }]}>
       <HeroSection />
       <LatestNewsSection />
     </ScrollView>
@@ -25,6 +27,5 @@ export function HomeScreen() {
 const style = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: 'white',
   },
 })

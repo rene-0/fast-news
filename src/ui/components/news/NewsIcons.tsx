@@ -7,24 +7,20 @@ export function NewsIcons() {
       <LabeledIcon
         iconName='eye'
         label='366'
-        color='black'
       />
       <LabeledIcon
         iconName='clockcircle'
         label='13/12/1998'
-        color='black'
         size={14}
       />
       <LabeledIcon
         iconName='message1'
         label='366'
-        color='black'
         size={14}
       />
       <LabeledIcon
         iconName='star'
         label='89'
-        color='black'
         size={14}
       />
     </View>

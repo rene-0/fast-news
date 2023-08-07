@@ -1,11 +1,13 @@
 import { LabeledIcon } from '@/ui/components/labeled-icon/LabeledIcon'
 import { News } from '@/ui/components/news'
 import { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Animated, Pressable, StyleSheet } from 'react-native'
 
 export function Favorite() {
   const [isToggled, setIsToggled] = useState(false)
   const fadeAnim = useRef(new Animated.Value(0)).current
+  const { t } = useTranslation()
 
   const toggleAnimation = () => {
     setIsToggled((oldIsToggled) => !oldIsToggled)
@@ -30,7 +32,7 @@ export function Favorite() {
         >
           <LabeledIcon
             iconName='close'
-            label='Back'
+            label={t('Cancel')}
             color='black'
             size={26}
             style={{ flexDirection: 'column' }}
@@ -42,7 +44,7 @@ export function Favorite() {
         >
           <LabeledIcon
             iconName='delete'
-            label='Remove favorite'
+            label={t('Remove favorite')}
             color='white'
             size={26}
             style={{ flexDirection: 'column' }}

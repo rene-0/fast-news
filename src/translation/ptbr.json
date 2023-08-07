@@ -1,0 +1,21 @@
+{
+  "common": {
+    "User settings": "Configurações de usuário",
+    "Light Theme": "Tema claro",
+    "Dark Theme": "Tema escuro",
+    "App language": "Idioma do aplicativo",
+    "Portuguese": "Português",
+    "English": "Inglês",
+    "Favorite news": "Noticias favoritas",
+    "History": "Histórico",
+    "User profile": "Perfil do usuário",
+    "Log out": "Sair",
+    "Remove favorite": "Remover favorito",
+    "Cancel": "Cancelar",
+    "Bookmarked news": "Noticias marcadas",
+    "Search a title": "Pesquise por um título",
+    "Comments": "Comentários",
+    "Comment": "Comentar",
+    "View more": "Ver mais"
+  }
+}

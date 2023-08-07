@@ -1,17 +1,20 @@
+import { AppText } from '@/ui/components/app-text/AppText'
 import { News } from '@/ui/components/news'
+import { RootView } from '@/ui/components/root-view/RootView'
 import { useNavigation } from '@react-navigation/native'
-import { LinearGradient } from 'expo-linear-gradient'
-import { StyleSheet, Text, View } from 'react-native'
+import { useTranslation } from 'react-i18next'
+import { StyleSheet, View } from 'react-native'
 
 export function LatestNewsSection() {
   const navigation = useNavigation()
+  const { t } = useTranslation()
 
   const navigateToNewsDetail = () => {
     navigation.navigate('NewsDetailScreen', { newsId: 1 })
   }
 
   return (
-    <View style={style.latestNewsContainer}>
+    <RootView style={style.latestNewsContainer}>
       <View style={style.scrollableNewsContainer}>
         <View style={style.newsContainer}>
           <News.NewsRoot onPress={navigateToNewsDetail}>
@@ -46,20 +49,17 @@ export function LatestNewsSection() {
           </News.NewsRoot>
         </View>
       </View>
-      <LinearGradient // Tem que sair daqui e ir para o componente parent
-        style={style.viewMoreContainer}
-        colors={['transparent', '#00000020', '#00000040', '#00000050', '#00000060']}
-      >
-        <Text style={style.viewMore}>View more</Text>
-      </LinearGradient>
-    </View>
+      <View style={style.viewMoreContainer}>
+        <AppText style={style.viewMore}>{t('View more')}</AppText>
+      </View>
+    </RootView>
   )
 }
 
 const style = StyleSheet.create({
   latestNewsContainer: {
     flex: 1,
-    backgroundColor: 'white',
+    paddingTop: 0,
     flexDirection: 'column',
     position: 'relative',
   },
@@ -83,6 +83,5 @@ const style = StyleSheet.create({
     fontWeight: '900',
     paddingHorizontal: 25,
     paddingVertical: 4,
-    color: 'white',
   },
 })

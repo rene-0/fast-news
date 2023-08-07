@@ -1,17 +1,19 @@
+import { AppText } from '@/ui/components/app-text/AppText'
 import { LabeledIcon } from '@/ui/components/labeled-icon/LabeledIcon'
 import { News } from '@/ui/components/news'
+import { RootView } from '@/ui/components/root-view/RootView'
 import { SearchInput } from '@/ui/components/search-input/SearchInput'
+import { useTheme } from '@/ui/hooks/useTheme'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { setStatusBarStyle } from 'expo-status-bar'
 import { useEffect } from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useTranslation } from 'react-i18next'
+import { ScrollView, StyleSheet, View } from 'react-native'
 
 export function BookmarksScreen() {
-  const insets = useSafeAreaInsets()
   const navigation = useNavigation()
-
-  const safeAreaPadding = { paddingTop: insets.top }
+  const { statusbarColor } = useTheme()
+  const { t } = useTranslation()
 
   const navigateToNewsDetail = () => {
     navigation.navigate('NewsDetailScreen', { newsId: 1 })
@@ -21,23 +23,25 @@ export function BookmarksScreen() {
 
   useEffect(() => {
     if (isFocused) {
-      setStatusBarStyle('dark')
+      setStatusBarStyle(statusbarColor)
     }
-  }, [isFocused])
+  }, [isFocused, statusbarColor])
 
   return (
-    <View style={[styles.bookmarksScreenContainer, safeAreaPadding]}>
+    <RootView style={styles.bookmarksScreenContainer}>
       <View style={styles.headContainer}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+        <View style={styles.headLabeledIcons}>
           <LabeledIcon
             iconName='book'
             label=''
-            color='black'
             size={24}
           />
-          <Text style={styles.screenTitle}>Bookmarked news</Text>
+          <AppText style={styles.screenTitle}>{t('Bookmarked news')}</AppText>
         </View>
-        <SearchInput onChangeText={(text) => console.log('pressed', text)} />
+        <SearchInput
+          placeholder={t('Search a title')}
+          onChangeText={(text) => console.log('pressed', text)}
+        />
       </View>
       <ScrollView style={styles.newsContainer}>
         <News.NewsRoot onPress={navigateToNewsDetail}>
@@ -119,15 +123,13 @@ export function BookmarksScreen() {
           <News.NewsDescription />
         </News.NewsRoot>
       </ScrollView>
-    </View>
+    </RootView>
   )
 }
 
 const styles = StyleSheet.create({
   bookmarksScreenContainer: {
     flex: 1,
-    // paddingHorizontal: 10,
-    backgroundColor: 'white',
   },
   combinedNewsIconContainer: {
     flexDirection: 'row',
@@ -143,5 +145,10 @@ const styles = StyleSheet.create({
   screenTitle: {
     fontSize: 28,
     fontWeight: '600',
+  },
+  headLabeledIcons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 })
