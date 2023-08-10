@@ -4,16 +4,34 @@ import { StyleSheet, View } from 'react-native'
 
 type HeroNewsItemProps = {
   width: number
+  title: string
+  description: string
+  messageCount: number
+  publishDate: string
+  starCounts: number
+  viewCount: number
 }
 
-export function HeroNewsItem({ width }: HeroNewsItemProps) {
+export function HeroNewsItem({ width, description, messageCount, publishDate, starCounts, title, viewCount }: HeroNewsItemProps) {
   return (
     <View style={[styles.heroNewsItemContainer, { width }]}>
-      <AppText style={styles.heroTitle}>Home Tab</AppText>
-      <News.NewsIcons />
-      <AppText style={styles.heroDescription}>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero, recusandae blanditiis unde odio sapiente ipsum neque quibusdam? Sapiente consequatur facilis quam
-        pariatur, totam odit mollitia sit nam ducimus officia ipsa?
+      <AppText
+        numberOfLines={1}
+        style={styles.heroTitle}
+      >
+        {title}
+      </AppText>
+      <News.NewsIcons
+        messageCount={messageCount}
+        publishDate={publishDate}
+        starCounts={starCounts}
+        viewCount={viewCount}
+      />
+      <AppText
+        numberOfLines={4}
+        style={styles.heroDescription}
+      >
+        {description}
       </AppText>
     </View>
   )

@@ -1,3 +1,5 @@
+import { NewsType } from '@/remote/types/data-types'
+import { LoadingWrapper } from '@/ui/components/loading-wrapper/LoadingWrapper'
 import { useTheme } from '@/ui/hooks/useTheme'
 import React, { useRef, useState } from 'react'
 import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native'
@@ -9,8 +11,14 @@ const horizontalPaddingWidth = 20
 const horizontalMarginWidth = 20
 const containerMaxWidth = 600
 
-export function HeroSection() {
+type HeroSectionProps = {
+  hightLightedNews: NewsType[]
+  isHightLightedNewsLoading: boolean
+}
+
+export function HeroSection({ hightLightedNews, isHightLightedNewsLoading }: HeroSectionProps) {
   const [currentHeroNewsItemIndex, setCurrentHeroNewsItemIndex] = useState(0)
+
   const { width: windowWidth } = useWindowDimensions()
 
   const { backgroundColor, appTheme } = useTheme()
@@ -38,31 +46,34 @@ export function HeroSection() {
       <ImageSlider
         imageSliderRef={heroImagesContainerRef}
         windowWidth={windowWidth}
-        imagesUrl={[
-          'https://s.yimg.com/ny/api/res/1.2/DHUbSCioJVAQm4qIvpU8sA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://s.yimg.com/os/creatr-uploaded-images/2023-07/68afad20-1ffb-11ee-b7fd-e1ad02e58223',
-          'https://s2-g1.glbimg.com/M2mtMAagxfS2z1EwR3ebuOhrvng=/0x0:1024x683/1008x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2022/A/J/MAnAB6Q3mrsyrXyouOqg/1112-agencias.jpg',
-          'https://t.ctcdn.com.br/GPw9Gvy72xp8XEpTOhA8SQTQ4iM=/1200x675/smart/filters:format(webp)/i713012.jpeg',
-          'https://icdn.football-espana.net/wp-content/uploads/2023/07/Oriol-Romeu-Barca-1.jpeg',
-          'https://dynaimage.cdn.cnn.com/cnn/digital-images/org/ff9cc4af-d583-4cad-8205-a970b8faa9c2.JPG',
-        ]}
+        imagesUrl={hightLightedNews.map((news) => news.image_url)}
       />
       <View style={[styles.heroDescriptionContainer, { ...(appTheme === 'dark' ? styles.heroDescriptionContainerDarkTheme : {}), backgroundColor }]}>
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          pagingEnabled
-          onMomentumScrollEnd={setScrollItemCurrentIndex}
-        >
-          <HeroNewsItem width={heroNewsItemWidth} />
-          <HeroNewsItem width={heroNewsItemWidth} />
-          <HeroNewsItem width={heroNewsItemWidth} />
-          <HeroNewsItem width={heroNewsItemWidth} />
-          <HeroNewsItem width={heroNewsItemWidth} />
-        </ScrollView>
-        <DotPagination
-          activeIndex={currentHeroNewsItemIndex}
-          numberOfDots={5}
-        />
+        <LoadingWrapper isLoading={isHightLightedNewsLoading}>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            pagingEnabled
+            onMomentumScrollEnd={setScrollItemCurrentIndex}
+          >
+            {hightLightedNews.map((news) => (
+              <HeroNewsItem
+                key={news.id}
+                width={heroNewsItemWidth}
+                title={news.title}
+                description={news.description}
+                messageCount={news.total_comments}
+                publishDate={''}
+                starCounts={news.total_stars}
+                viewCount={news.total_views}
+              />
+            ))}
+          </ScrollView>
+          <DotPagination
+            activeIndex={currentHeroNewsItemIndex}
+            numberOfDots={hightLightedNews.length}
+          />
+        </LoadingWrapper>
       </View>
     </View>
   )
@@ -72,12 +83,14 @@ const styles = StyleSheet.create({
   hero: {
     position: 'relative',
     zIndex: 1,
-    marginBottom: 40,
+    marginBottom: 50,
   },
   heroImage: {
     height: 300,
   },
   heroDescriptionContainer: {
+    width: '90%',
+    height: 160,
     position: 'absolute',
     zIndex: 2,
     bottom: -50,
@@ -89,6 +102,7 @@ const styles = StyleSheet.create({
     elevation: 12,
     marginHorizontal: horizontalMarginWidth,
     maxWidth: 600,
+    justifyContent: 'center',
   },
   heroDescriptionContainerDarkTheme: {
     elevation: 1,
