@@ -17,7 +17,7 @@ export function Button({ children, style, onPress, ...rest }: ButtonProp) {
       onPress={onPress}
       style={[defaultStyles.buttonRoot, { backgroundColor: appTheme === 'light' ? '#161616' : '#ffffff' }, style]}
       {...rest}
-      android_ripple={{ color: detailColor }}
+      android_ripple={{ color: rest?.android_ripple?.color || detailColor }}
     >
       <AppText style={{ color: appTheme === 'light' ? 'white' : '#161616' }}>{children}</AppText>
     </Pressable>

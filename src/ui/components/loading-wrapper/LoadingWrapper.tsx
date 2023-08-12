@@ -1,20 +1,19 @@
 import { useTheme } from '@/ui/hooks/useTheme'
 import { ReactNode } from 'react'
-import { ActivityIndicator, StyleProp, ViewStyle } from 'react-native'
+import { ActivityIndicator, ActivityIndicatorProps } from 'react-native'
 
-type LoadingWrapperProps = {
+type LoadingWrapperProps = ActivityIndicatorProps & {
   isLoading: boolean
   children: ReactNode
-  style?: StyleProp<ViewStyle>
 }
 
-export function LoadingWrapper({ isLoading, children, style }: LoadingWrapperProps): JSX.Element {
+export function LoadingWrapper({ isLoading, children, ...rest }: LoadingWrapperProps): JSX.Element {
   const { color: themeColor } = useTheme()
   return isLoading ? (
     <ActivityIndicator
-      size='large'
-      color={themeColor}
-      style={style}
+      size={rest.size || 'small'}
+      color={rest.color || themeColor}
+      style={rest.style}
     />
   ) : (
     <>{children}</>
