@@ -28,6 +28,8 @@
     "Confirm Password": "Confirm Password:",
     "password_help": "At least one upper case letter\nAt least one lower case letter\nAt least one digit\nAt least one special character\nMinimum 8 in length",
     "Password and confirm password must be equal": "Password and confirm password must be equal",
-    "Invalid e-mail": "Invalid e-mail"
+    "Invalid e-mail": "Invalid e-mail",
+    "Login to comment!": "Login to comment!",
+    "No comments yet, be the first to comment!": "No comments yet, be the first to comment!"
   }
 }

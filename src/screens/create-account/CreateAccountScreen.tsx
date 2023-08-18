@@ -89,7 +89,6 @@ export function CreateAccountScreen() {
         photoURL,
       })
     } catch (error) {
-      console.log('error', error)
       if (error instanceof FirebaseError) {
         switch (error.code) {
           case 'auth/weak-password':

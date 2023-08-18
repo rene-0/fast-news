@@ -28,6 +28,8 @@
     "Confirm Password": "Confirmar senha:",
     "password_help": "Deve conter pelo menos uma letra maiúscula\nPelo menos uma letra minúscula\nPelo menos um dígito\nPelo menos um caractere especial\nPelo menos 8 caracteres",
     "Password and confirm password must be equal": "Senha e confirmar senha devem ser iguais",
-    "Invalid e-mail": "E-mail inválido"
+    "Invalid e-mail": "E-mail inválido",
+    "Login to comment!": "Entre para comentar!",
+    "No comments yet, be the first to comment!": "Nenhum comentário ainda, seja o primeiro a comentar!"
   }
 }

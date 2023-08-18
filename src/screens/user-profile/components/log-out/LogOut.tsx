@@ -24,7 +24,6 @@ export function LogOut() {
       await firebaseAuth.signOut()
       setUserAuth(null)
     } catch (error) {
-      console.log('error', error)
       Alert.alert('Network error')
     } finally {
       setIsLoggingOut(false)
