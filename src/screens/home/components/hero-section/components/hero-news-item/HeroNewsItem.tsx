@@ -22,7 +22,7 @@ export function HeroNewsItem({ width, description, messageCount, publishDate, st
         {title}
       </AppText>
       <News.NewsIcons
-        messageCount={messageCount}
+        commentCount={messageCount}
         publishDate={publishDate}
         starCounts={starCounts}
         viewCount={viewCount}

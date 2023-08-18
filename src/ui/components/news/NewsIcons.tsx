@@ -4,11 +4,11 @@ import { LabeledIcon } from '../labeled-icon/LabeledIcon'
 type NewsIconsProps = {
   viewCount: number
   publishDate: string
-  messageCount: number
+  commentCount: number
   starCounts: number
 }
 
-export function NewsIcons({ viewCount, messageCount, publishDate, starCounts }: NewsIconsProps) {
+export function NewsIcons({ viewCount, commentCount, publishDate, starCounts }: NewsIconsProps) {
   return (
     <View style={style.iconLabelContainer}>
       <LabeledIcon
@@ -22,7 +22,7 @@ export function NewsIcons({ viewCount, messageCount, publishDate, starCounts }: 
       />
       <LabeledIcon
         iconName='message1'
-        label={messageCount}
+        label={commentCount}
         size={14}
       />
       <LabeledIcon
