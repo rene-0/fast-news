@@ -1,8 +1,10 @@
+import { formatTimeStamp } from '@/remote/firebase'
 import { NewsType } from '@/remote/types/data-types'
 import { LoadingWrapper } from '@/ui/components/loading-wrapper/LoadingWrapper'
 import { useTheme } from '@/ui/hooks/useTheme'
+import { useNavigation } from '@react-navigation/native'
 import React, { useRef, useState } from 'react'
-import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native'
+import { NativeScrollEvent, NativeSyntheticEvent, Pressable, ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native'
 import { DotPagination } from './components/dot-pagination/DotPagination'
 import { HeroNewsItem } from './components/hero-news-item/HeroNewsItem'
 import { ImageSlider } from './components/image-slider/ImageSlider'
@@ -22,6 +24,7 @@ export function HeroSection({ hightLightedNews, isHightLightedNewsLoading }: Her
   const { width: windowWidth } = useWindowDimensions()
 
   const { backgroundColor, appTheme } = useTheme()
+  const navigation = useNavigation()
 
   const paddingWhitespaceWidth = horizontalPaddingWidth * 2
   const marginWhitespaceWidth = horizontalMarginWidth * 2
@@ -41,6 +44,10 @@ export function HeroSection({ hightLightedNews, isHightLightedNewsLoading }: Her
 
   const heroImagesContainerRef = useRef<ScrollView | null>(null)
 
+  const navigateToNewsDetail = (newsId: string) => {
+    navigation.navigate('NewsDetailScreen', { newsId })
+  }
+
   return (
     <View style={styles.hero}>
       <ImageSlider
@@ -57,16 +64,20 @@ export function HeroSection({ hightLightedNews, isHightLightedNewsLoading }: Her
             onMomentumScrollEnd={setScrollItemCurrentIndex}
           >
             {hightLightedNews.map((news) => (
-              <HeroNewsItem
+              <Pressable
                 key={news.id}
-                width={heroNewsItemWidth}
-                title={news.title}
-                description={news.description}
-                messageCount={news.total_comments}
-                publishDate={''}
-                starCounts={news.total_stars}
-                viewCount={news.total_views}
-              />
+                onPress={() => navigateToNewsDetail(news.id)}
+              >
+                <HeroNewsItem
+                  width={heroNewsItemWidth}
+                  title={news.title}
+                  description={news.description}
+                  messageCount={news.total_comments}
+                  publishDate={formatTimeStamp(news.publish_date)}
+                  starCounts={news.total_stars}
+                  viewCount={news.total_views}
+                />
+              </Pressable>
             ))}
           </ScrollView>
           <DotPagination

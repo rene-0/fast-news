@@ -16,15 +16,20 @@ export function ImageSlider({ imageSliderRef, windowWidth, imagesUrl }: ImageSli
       ref={(ref) => (imageSliderRef.current = ref)}
       pagingEnabled
     >
-      {imagesUrl.map((uri) => (
+      {imagesUrl.length > 0 ? (
+        imagesUrl.map((uri) => (
+          <Image
+            key={uri}
+            style={[styles.sliderImage, { width: windowWidth }]}
+            source={{ uri }}
+          />
+        ))
+      ) : (
         <Image
-          key={uri}
           style={[styles.sliderImage, { width: windowWidth }]}
-          source={{
-            uri,
-          }}
+          source={require('assets/placeholder-image.png')}
         />
-      ))}
+      )}
     </ScrollView>
   )
 }

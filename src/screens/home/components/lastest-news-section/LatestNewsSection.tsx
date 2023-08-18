@@ -16,8 +16,8 @@ export function LatestNewsSection({ isLatestNews, latestNews }: LatestNewsSectio
   const navigation = useNavigation()
   const { t } = useTranslation()
 
-  const navigateToNewsDetail = () => {
-    navigation.navigate('NewsDetailScreen', { newsId: 1 })
+  const navigateToNewsDetail = (newsId: string) => {
+    navigation.navigate('NewsDetailScreen', { newsId })
   }
 
   return (
@@ -31,12 +31,12 @@ export function LatestNewsSection({ isLatestNews, latestNews }: LatestNewsSectio
             {latestNews.map((news) => (
               <News.NewsRoot
                 key={news.id}
-                onPress={navigateToNewsDetail}
+                onPress={() => navigateToNewsDetail(news.id)}
               >
                 <News.NewsImage uri={news.image_url} />
                 <News.NewsTitle title={news.title} />
                 <News.NewsIcons
-                  messageCount={news.total_comments}
+                  commentCount={news.total_comments}
                   publishDate={''}
                   starCounts={news.total_stars}
                   viewCount={news.total_stars}

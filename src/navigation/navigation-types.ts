@@ -1,7 +1,7 @@
 import type { StackScreenProps } from '@react-navigation/stack'
 
 type NewsDetailScreenProps = {
-  newsId: number
+  newsId: string
 }
 
 export type RootStackParamList = {

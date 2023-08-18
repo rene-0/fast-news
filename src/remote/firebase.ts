@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
-import { CollectionReference, DocumentData, Query, collection, getDocs, getFirestore } from 'firebase/firestore'
+import { CollectionReference, DocumentData, Query, Timestamp, collection, getDocs, getFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
@@ -24,4 +24,12 @@ export const createCollection = <T = DocumentData>(collectionName: string) => {
 export const getDocsDataWithId = async <T>(query: Query<T, DocumentData>): Promise<T[]> => {
   const { docs } = await getDocs(query)
   return docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+}
+
+export const formatTimeStamp = (timestamp: Timestamp) => {
+  return timestamp
+    .toDate()
+    .toISOString()
+    .slice(0, 10)
+    .replace(/^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})$/gm, '$<day>/$<month>/$<year>')
 }
