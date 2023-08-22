@@ -105,7 +105,7 @@ export function NewsDetailScreen({ route }: NewsDetailScreenProps) {
   useEffect(() => {
     getNews()
     markAsViewed()
-  }, [])
+  }, [newsId, userAuth])
 
   return (
     <ScrollView style={style.newsDetailRoot}>
