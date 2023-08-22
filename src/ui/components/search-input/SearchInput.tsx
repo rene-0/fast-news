@@ -2,15 +2,18 @@ import { Button } from '@/ui/components/button/Button'
 import { useTheme } from '@/ui/hooks/useTheme'
 import { AntDesign } from '@expo/vector-icons'
 import { GestureResponderEvent, StyleProp, StyleSheet, TextInput, View, ViewStyle } from 'react-native'
+import { LoadingWrapper } from '../loading-wrapper/LoadingWrapper'
 
 type SearchInputProps = {
   onChangeText?: ((text: string) => void) | undefined
   onPress?: (((event: GestureResponderEvent) => void) & ((event: GestureResponderEvent) => void)) | null | undefined
   style?: StyleProp<ViewStyle>
   placeholder?: string | undefined
+  isLoading: boolean
+  textValue: string
 }
 
-export function SearchInput({ onChangeText, onPress, style, placeholder }: SearchInputProps) {
+export function SearchInput({ onChangeText, onPress, style, placeholder, isLoading, textValue }: SearchInputProps) {
   const { appTheme } = useTheme()
   return (
     <View style={[defaultStyles.searchContainer, style]}>
@@ -18,13 +21,19 @@ export function SearchInput({ onChangeText, onPress, style, placeholder }: Searc
         onChangeText={onChangeText}
         style={defaultStyles.searchInput}
         placeholder={placeholder}
+        value={textValue}
       />
       <Button onPress={onPress}>
-        <AntDesign
-          name='search1'
-          size={18}
+        <LoadingWrapper
+          isLoading={isLoading}
           color={appTheme === 'light' ? 'white' : 'black'}
-        />
+        >
+          <AntDesign
+            name='search1'
+            size={18}
+            color={appTheme === 'light' ? 'white' : 'black'}
+          />
+        </LoadingWrapper>
       </Button>
     </View>
   )
