@@ -65,8 +65,7 @@ export function NewsSearchScreen() {
       setIsLoadingNews(true)
       const newsCollection = createCollection<NewsType>('news')
 
-      const queryConstraints: QueryConstraint[] = [orderBy(searchText ? 'title' : 'publish_date'), limit(5)]
-      queryConstraints.push(startAfter(lastVisibleDocument.current))
+      const queryConstraints: QueryConstraint[] = [orderBy(searchText ? 'title' : 'publish_date'), limit(5), startAfter(lastVisibleDocument.current)]
 
       if (searchText) {
         queryConstraints.push(where('title', '>=', searchText), where('title', '<=', searchText))
