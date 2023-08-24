@@ -79,7 +79,7 @@ export function NewsDetailScreen({ route }: NewsDetailScreenProps) {
         if (!news.exists()) {
           throw new Error("News doesn't exists")
         }
-        transaction.set(viewDoc, { news_id: newsId, user_email: userAuth.email })
+        transaction.set(viewDoc, { news_id: newsId, user_email: userAuth.email, viewed_at: Timestamp.now() })
         transaction.update(newsDoc, { total_views: news.data().total_views + 1 })
       })
       setNews((old) => ({ ...old, total_views: old.total_views + 1 }))

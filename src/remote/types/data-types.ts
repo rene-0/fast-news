@@ -34,6 +34,7 @@ export type ViewsType = {
   id: string
   news_id: string
   user_email: string
+  viewed_at: Timestamp
 }
 
 export type BookmarksType = {
