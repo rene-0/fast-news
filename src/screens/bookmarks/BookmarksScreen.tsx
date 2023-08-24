@@ -74,7 +74,6 @@ export function BookmarksScreen() {
       lastVisibleDocument.current = docs[docs.length - 1]
       reachedEndOfSearch.current = false
     } catch (error) {
-      console.log('error', error)
       Alert.alert('Network Error!')
     } finally {
       setIsLoadingBookmarks(false)

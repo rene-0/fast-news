@@ -4,7 +4,13 @@ import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Animated, Pressable, StyleSheet } from 'react-native'
 
-export function Favorite() {
+type FavoriteType = {
+  title: string
+  description: string
+  onDelete: () => void
+}
+
+export function Favorite({ title, description, onDelete }: FavoriteType) {
   const [isToggled, setIsToggled] = useState(false)
   const fadeAnim = useRef(new Animated.Value(0)).current
   const { t } = useTranslation()
@@ -19,7 +25,7 @@ export function Favorite() {
   }
 
   const handleDeleteFavoriteNews = () => {
-    console.log('Deleted!')
+    onDelete()
     toggleAnimation()
   }
 
@@ -51,8 +57,8 @@ export function Favorite() {
           />
         </Pressable>
       </Animated.View>
-      <News.NewsTitle />
-      <News.NewsDescription />
+      <News.NewsTitle title={title} />
+      <News.NewsDescription descriptionText={description} />
     </News.NewsRoot>
   )
 }

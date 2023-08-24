@@ -28,6 +28,7 @@ export type StarType = {
   id: string
   news_id: string
   user_email: string
+  stared_at: Timestamp
 }
 
 export type ViewsType = {

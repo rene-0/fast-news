@@ -4,7 +4,7 @@ import { userAuthState } from '@/ui/components/atoms'
 import { Button } from '@/ui/components/button/Button'
 import { LoadingWrapper } from '@/ui/components/loading-wrapper/LoadingWrapper'
 import { AntDesign } from '@expo/vector-icons'
-import { doc, getDoc, getDocs, limit, query, runTransaction, where } from 'firebase/firestore'
+import { Timestamp, doc, getDoc, getDocs, limit, query, runTransaction, where } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { Alert, StyleSheet } from 'react-native'
 import { useRecoilValue } from 'recoil'
@@ -61,7 +61,7 @@ export function StarButton({ newsId, changeTotalStars }: StarButtonType) {
         if (stars.empty) {
           starsNumber++
           newIsMarked = true
-          transaction.set(doc(starsCollection), { news_id: newsId, user_email: userAuth.email })
+          transaction.set(doc(starsCollection), { news_id: newsId, user_email: userAuth.email, stared_at: Timestamp.now() })
         } else {
           starsNumber--
           newIsMarked = false
