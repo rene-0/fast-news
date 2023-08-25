@@ -15,6 +15,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, StyleSheet, Text } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 import { useSetRecoilState } from 'recoil'
 
 type NewsUser = {
@@ -29,13 +30,15 @@ type NewUserValidation = {
   emailHelp: string
   passwordHelp: string
   confirmPasswordHelp: string
+  imageHelp: string
 }
 
 export function CreateAccountScreen() {
   const [newUser, setNewUser] = useState<NewsUser>({ name: '', email: '', password: '', confirmPassword: '' })
-  const [newUserValidation, setNewUserValidation] = useState<NewUserValidation>({ nameHelp: '', passwordHelp: '', emailHelp: '', confirmPasswordHelp: '' })
+  const [newUserValidation, setNewUserValidation] = useState<NewUserValidation>({ nameHelp: '', passwordHelp: '', emailHelp: '', confirmPasswordHelp: '', imageHelp: '' })
   const [isCreatingAccount, setIsCreatingAccount] = useState(false)
   const [pickedImage, setPickedImage] = useState<ExpoImagePicker.ImagePickerAsset>()
+  const [isLoadingImagePicker, setIsLoadingImagePicker] = useState(false)
 
   const { t } = useTranslation()
   const { backgroundColor } = useTheme()
@@ -48,11 +51,17 @@ export function CreateAccountScreen() {
         return
       }
       setIsCreatingAccount(true)
-      const hasValidationMessage = Object.values(newUserValidation).some((value) => value)
-      const hasEmptyField = Object.values(newUser).some((value) => !value)
-      if (!newUser || hasValidationMessage || hasEmptyField || !pickedImage?.uri) {
+      const hasError = [
+        validateEmail(newUser.email),
+        validateImage(pickedImage),
+        validateConfirmPassword(newUser.confirmPassword),
+        validatePassword(newUser.password),
+        validateName(newUser.name),
+      ].some((error) => error === false)
+      if (hasError || !newUser || !pickedImage?.uri) {
         return
       }
+      console.log('cc')
       const { user } = await createUserWithEmailAndPassword(firebaseAuth, newUser.email, newUser.password)
       //Não passar a refernência ao objeto 'user' para o estado do recoil, recoil vai congelar objeto (Object.freeze()) impedindo que o sdk do firebase consiga faz mutações
       // Para uma explicação melhor veja a 'issue' = https://github.com/firebase/firebase-js-sdk/issues/5722
@@ -109,55 +118,89 @@ export function CreateAccountScreen() {
     }
   }
 
-  const setName = (name: string) => {
-    setNewUser((oldNewUser) => ({ ...oldNewUser, name }))
+  const validateName = (name: string) => {
     if (name.length < 3 || !/^[a-zA-Z]{3,}/.test(name)) {
       setNewUserValidation((oldNewUserValidation) => ({ ...oldNewUserValidation, nameHelp: t('User name must contain 5 or more letters') }))
-    } else {
+      return false
+    }
+    return true
+  }
+
+  const setName = (name: string) => {
+    setNewUser((oldNewUser) => ({ ...oldNewUser, name }))
+    if (validateName(name)) {
       setNewUserValidation((oldNewUserValidation) => ({ ...oldNewUserValidation, nameHelp: '' }))
     }
   }
 
-  const setPassword = (password: string) => {
+  const validatePassword = (password: string) => {
     const passwordRegEx = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-    setNewUser((oldNewUser) => ({ ...oldNewUser, password }))
     if (!passwordRegEx.test(password)) {
       setNewUserValidation((oldNewUserValidation) => ({
         ...oldNewUserValidation,
         passwordHelp: t('password_help'),
       }))
-    } else {
+      return false
+    }
+    return true
+  }
+
+  const setPassword = (password: string) => {
+    setNewUser((oldNewUser) => ({ ...oldNewUser, password }))
+    if (validatePassword(password)) {
       setNewUserValidation((oldNewUserValidation) => ({ ...oldNewUserValidation, passwordHelp: '' }))
     }
   }
 
-  const setConfirmPassword = (confirmPassword: string) => {
-    setNewUser((oldNewUser) => ({ ...oldNewUser, confirmPassword }))
+  const validateConfirmPassword = (confirmPassword: string) => {
     if (confirmPassword !== newUser.password) {
       setNewUserValidation((oldNewUserValidation) => ({
         ...oldNewUserValidation,
         confirmPasswordHelp: t('Password and confirm password must be equal'),
       }))
-    } else {
+      return false
+    }
+    return true
+  }
+
+  const setConfirmPassword = (confirmPassword: string) => {
+    setNewUser((oldNewUser) => ({ ...oldNewUser, confirmPassword }))
+    if (validateConfirmPassword(confirmPassword)) {
       setNewUserValidation((oldNewUserValidation) => ({ ...oldNewUserValidation, confirmPasswordHelp: '' }))
     }
   }
 
-  const setEmail = (email: string) => {
-    setNewUser((oldNewUser) => ({ ...oldNewUser, email }))
+  const validateEmail = (email: string) => {
     const emailRegEx = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i
     if (!emailRegEx.test(email)) {
       setNewUserValidation((oldNewUserValidation) => ({
         ...oldNewUserValidation,
         emailHelp: t('Invalid e-mail'),
       }))
-    } else {
+      return false
+    }
+    return true
+  }
+
+  const setEmail = (email: string) => {
+    setNewUser((oldNewUser) => ({ ...oldNewUser, email }))
+    if (validateEmail(email)) {
       setNewUserValidation((oldNewUserValidation) => ({ ...oldNewUserValidation, emailHelp: '' }))
     }
   }
 
+  const validateImage = (image: ExpoImagePicker.ImagePickerAsset | undefined) => {
+    if (!image || !image.uri) {
+      setNewUserValidation((oldNewUserValidation) => ({ ...oldNewUserValidation, imageHelp: t('No image selected') }))
+      return false
+    }
+    setNewUserValidation((oldNewUserValidation) => ({ ...oldNewUserValidation, imageHelp: '' }))
+    return true
+  }
+
   const pickImage = async () => {
     try {
+      setIsLoadingImagePicker(true)
       const result = await ExpoImagePicker.launchImageLibraryAsync({
         mediaTypes: ExpoImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
@@ -170,50 +213,57 @@ export function CreateAccountScreen() {
       }
     } catch (error) {
       Alert.alert('Failed to select image')
+    } finally {
+      setIsLoadingImagePicker(false)
     }
   }
 
   return (
-    <RootView style={styles.rootView}>
-      <AppText style={styles.screenTitle}>{t('Create account')}</AppText>
-      <LabeledInput
-        label={t('Name')}
-        errorText={newUserValidation.nameHelp}
-        onChangeText={setName}
-      />
-      <LabeledInput
-        label={t('Email')}
-        errorText={newUserValidation.emailHelp}
-        onChangeText={setEmail}
-      />
-      <LabeledInput
-        label={t('Password')}
-        errorText={newUserValidation.passwordHelp}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <LabeledInput
-        label={t('Confirm Password')}
-        errorText={newUserValidation.confirmPasswordHelp}
-        onChangeText={setConfirmPassword}
-        secureTextEntry
-      />
-      <ImagePicker
-        image={pickedImage}
-        pickImage={pickImage}
-      />
-      <Button
-        onPress={createAccount}
-        style={styles.createAccountButton}
-      >
-        <LoadingWrapper
-          color={backgroundColor}
-          isLoading={isCreatingAccount}
-        >
-          <Text style={styles.buttonInnerText}>{t('Create account')}</Text>
+    <ScrollView>
+      <RootView style={styles.rootView}>
+        <AppText style={styles.screenTitle}>{t('Create account')}</AppText>
+        <LabeledInput
+          label={t('Name')}
+          errorText={newUserValidation.nameHelp}
+          onChangeText={setName}
+        />
+        <LabeledInput
+          label={t('Email')}
+          errorText={newUserValidation.emailHelp}
+          onChangeText={setEmail}
+        />
+        <LabeledInput
+          label={t('Password')}
+          errorText={newUserValidation.passwordHelp}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+        <LabeledInput
+          label={t('Confirm Password')}
+          errorText={newUserValidation.confirmPasswordHelp}
+          onChangeText={setConfirmPassword}
+          secureTextEntry
+        />
+        <LoadingWrapper isLoading={isLoadingImagePicker}>
+          <ImagePicker
+            image={pickedImage}
+            pickImage={pickImage}
+          />
         </LoadingWrapper>
-      </Button>
-    </RootView>
+        <Button
+          onPress={createAccount}
+          style={styles.createAccountButton}
+        >
+          <LoadingWrapper
+            color={backgroundColor}
+            isLoading={isCreatingAccount}
+          >
+            <Text style={styles.buttonInnerText}>{t('Create account')}</Text>
+          </LoadingWrapper>
+        </Button>
+        <AppText style={styles.alertText}>{newUserValidation.imageHelp}</AppText>
+      </RootView>
+    </ScrollView>
   )
 }
 
@@ -247,5 +297,9 @@ const styles = StyleSheet.create({
   },
   buttonInnerText: {
     fontWeight: 'bold',
+  },
+  alertText: {
+    color: 'red',
+    marginTop: 5,
   },
 })

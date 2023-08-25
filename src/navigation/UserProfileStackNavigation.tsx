@@ -6,6 +6,7 @@ import { NewsHistory } from '@/screens/user-profile/screens/news-history/NewsHis
 import { UserSettings } from '@/screens/user-profile/screens/user-settings/UserSettings'
 import { userAuthState } from '@/ui/components/atoms'
 import { createStackNavigator } from '@react-navigation/stack'
+import 'react-native-gesture-handler' // build falha sem
 import { useRecoilValue } from 'recoil'
 import { RootStackParamList } from './navigation-types'
 
