@@ -1,22 +1,25 @@
 import { AppText } from '@/ui/components/app-text/AppText'
 import { Image, StyleSheet, View } from 'react-native'
 
-export function Comment() {
+type CommentProps = {
+  imageUrl: string
+  userName: string
+  comment: string
+  userEmail: string
+}
+
+export function Comment({ imageUrl, comment, userName, userEmail }: CommentProps) {
   return (
     <View style={styles.commentRoot}>
       <Image
-        source={{
-          uri: 'https://s.yimg.com/ny/api/res/1.2/DHUbSCioJVAQm4qIvpU8sA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://s.yimg.com/os/creatr-uploaded-images/2023-07/68afad20-1ffb-11ee-b7fd-e1ad02e58223',
-        }}
+        source={{ uri: imageUrl || 'https://cdn-icons-png.flaticon.com/128/1814/1814249.png' }}
         style={styles.userImage}
       />
       <View style={styles.textContainer}>
-        <AppText style={styles.userName}>User name</AppText>
+        <AppText style={styles.userName}>{userName}</AppText>
+        <AppText style={styles.userEmail}>{userEmail}</AppText>
         <View style={styles.userCommentContainer}>
-          <AppText style={styles.userComment}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione mollitia cupiditate qui provident commodi magni porro omnis distinctio vitae hic voluptate, iure illum
-            eaque, voluptatem sapiente sed earum laborum numquam?
-          </AppText>
+          <AppText style={styles.userComment}>{comment}</AppText>
         </View>
       </View>
     </View>
@@ -41,6 +44,11 @@ const styles = StyleSheet.create({
   userName: {
     fontWeight: '700',
     fontSize: 16,
+    lineHeight: 16,
+  },
+  userEmail: {
+    fontSize: 10,
+    lineHeight: 10,
   },
   userCommentContainer: {
     flexDirection: 'row',

@@ -5,7 +5,7 @@ import ptBrTranslation from './ptbr.json'
 
 const i18nConfigs: InitOptions = {
   compatibilityJSON: 'v3',
-  debug: true,
+  debug: false,
   resources: {
     en: enTranslation,
     ptBr: ptBrTranslation,

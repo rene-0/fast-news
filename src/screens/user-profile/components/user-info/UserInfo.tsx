@@ -1,21 +1,23 @@
 import { AppText } from '@/ui/components/app-text/AppText'
+import { userAuthState } from '@/ui/components/atoms'
 import { useTheme } from '@/ui/hooks/useTheme'
 import { Image, StyleSheet, View } from 'react-native'
+import { useRecoilValue } from 'recoil'
 
 export function UserInfo() {
+  const userAuth = useRecoilValue(userAuthState)
+
   const { detailColor } = useTheme()
 
   return (
     <View style={[styles.userContainer, { borderBottomColor: detailColor }]}>
       <Image
         style={styles.userAvatar}
-        source={{
-          uri: 'https://s.yimg.com/ny/api/res/1.2/DHUbSCioJVAQm4qIvpU8sA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://s.yimg.com/os/creatr-uploaded-images/2023-07/68afad20-1ffb-11ee-b7fd-e1ad02e58223',
-        }}
+        source={{ uri: userAuth?.photoURL || 'https://cdn-icons-png.flaticon.com/128/1814/1814249.png' }}
       />
       <View>
-        <AppText style={styles.userName}>User name</AppText>
-        <AppText>rene.colombaro@hotmail.com</AppText>
+        <AppText style={styles.userName}>{userAuth?.displayName}</AppText>
+        <AppText>{userAuth?.email}</AppText>
       </View>
     </View>
   )

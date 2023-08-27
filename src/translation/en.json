@@ -16,6 +16,22 @@
     "Search a title": "Search a title",
     "Comments": "Comments",
     "Comment": "Comment",
-    "View more": "View more"
+    "View more": "View more",
+    "User name must contain 5 or more letters": "User name must contain 3 or more letters",
+    "Change app language:": "Change app language:",
+    "current_language": "English",
+    "Log in": "Log in",
+    "E-mail": "E-mail:",
+    "Password": "Password:",
+    "Create account": "Create account",
+    "Name:": "Name:",
+    "Confirm Password": "Confirm Password:",
+    "password_help": "At least one upper case letter\nAt least one lower case letter\nAt least one digit\nAt least one special character\nMinimum 8 in length",
+    "Password and confirm password must be equal": "Password and confirm password must be equal",
+    "Invalid e-mail": "Invalid e-mail",
+    "Login to comment!": "Login to comment!",
+    "No comments yet, be the first to comment!": "No comments yet, be the first to comment!",
+    "Login to see bookmarked news": "Login to see bookmarked news",
+    "No history yet": "No history yet"
   }
 }

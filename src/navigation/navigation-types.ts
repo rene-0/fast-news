@@ -1,7 +1,7 @@
 import type { StackScreenProps } from '@react-navigation/stack'
 
 type NewsDetailScreenProps = {
-  newsId: number
+  newsId: string
 }
 
 export type RootStackParamList = {
@@ -11,6 +11,8 @@ export type RootStackParamList = {
   UserSetting: undefined
   FavoriteNews: undefined
   NewsHistory: undefined
+  LoginScreen: undefined
+  CreateAccountScreen: undefined
 }
 
 export type RootNativeStackScreenProps<T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>

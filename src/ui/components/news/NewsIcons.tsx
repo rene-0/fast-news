@@ -1,26 +1,33 @@
 import { StyleSheet, View } from 'react-native'
 import { LabeledIcon } from '../labeled-icon/LabeledIcon'
 
-export function NewsIcons() {
+type NewsIconsProps = {
+  viewCount: number
+  publishDate: string
+  commentCount: number
+  starCounts: number
+}
+
+export function NewsIcons({ viewCount, commentCount, publishDate, starCounts }: NewsIconsProps) {
   return (
     <View style={style.iconLabelContainer}>
       <LabeledIcon
         iconName='eye'
-        label='366'
+        label={viewCount}
       />
       <LabeledIcon
         iconName='clockcircle'
-        label='13/12/1998'
+        label={publishDate}
         size={14}
       />
       <LabeledIcon
         iconName='message1'
-        label='366'
+        label={commentCount}
         size={14}
       />
       <LabeledIcon
         iconName='star'
-        label='89'
+        label={starCounts}
         size={14}
       />
     </View>

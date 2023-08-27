@@ -1,10 +1,22 @@
+import { userAuthState } from '@/ui/components/atoms'
 import { Button } from '@/ui/components/button/Button'
 import { AntDesign } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { Image, StyleSheet, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useRecoilValue } from 'recoil'
+import { BookmarkButton } from './components/bookmar-button/BookmarkButton'
+import { StarButton } from './components/star-button/StarButton'
 
-export function NewsImageCarousel() {
+type NewsImageProps = {
+  imageUrl: string
+  newsId: string
+  changeTotalStars: (newTotalStars: number) => void
+}
+
+export function NewsImage({ imageUrl, newsId, changeTotalStars }: NewsImageProps) {
+  const userAuth = useRecoilValue(userAuthState)
+
   const navigation = useNavigation()
   const insets = useSafeAreaInsets()
 
@@ -14,9 +26,7 @@ export function NewsImageCarousel() {
     <View style={[style.newsImageRoot]}>
       <Image
         style={style.newsImage}
-        source={{
-          uri: 'https://s.yimg.com/ny/api/res/1.2/DHUbSCioJVAQm4qIvpU8sA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://s.yimg.com/os/creatr-uploaded-images/2023-07/68afad20-1ffb-11ee-b7fd-e1ad02e58223',
-        }}
+        source={{ uri: imageUrl || 'https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png' }}
       />
       <View style={[style.newsImageHeadControl, safeAreaPadding]}>
         <Button
@@ -29,13 +39,17 @@ export function NewsImageCarousel() {
             color='white'
           />
         </Button>
-        <Button style={style.newsImageHeadButton}>
-          <AntDesign
-            name='staro'
-            size={24}
-            color='white'
-          />
-        </Button>
+        {userAuth ? (
+          <View>
+            <StarButton
+              newsId={newsId}
+              changeTotalStars={changeTotalStars}
+            />
+            <BookmarkButton newsId={newsId} />
+          </View>
+        ) : (
+          <></>
+        )}
       </View>
     </View>
   )
