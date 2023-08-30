@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
   },
   activeDot: {
     backgroundColor: 'white',
-    // backgroundColor: '#161616',
   },
   arrow: {
     marginRight: 5,

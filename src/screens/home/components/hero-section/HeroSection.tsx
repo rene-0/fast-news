@@ -10,7 +10,7 @@ import { HeroNewsItem } from './components/hero-news-item/HeroNewsItem'
 import { ImageSlider } from './components/image-slider/ImageSlider'
 
 const horizontalPaddingWidth = 20
-const horizontalMarginWidth = 20
+const horizontalOuterPaddingWidth = 20
 const containerMaxWidth = 600
 
 type HeroSectionProps = {
@@ -27,13 +27,13 @@ export function HeroSection({ hightLightedNews, isHightLightedNewsLoading }: Her
   const navigation = useNavigation()
 
   const paddingWhitespaceWidth = horizontalPaddingWidth * 2
-  const marginWhitespaceWidth = horizontalMarginWidth * 2
+  const marginWhitespaceWidth = horizontalOuterPaddingWidth * 2
   const combinedWitheSpaceWidth = paddingWhitespaceWidth + marginWhitespaceWidth
-  const innerContainerWidth = Math.floor(windowWidth - combinedWitheSpaceWidth)
+  const innerContainerWidth = windowWidth - combinedWitheSpaceWidth
   const heroNewsItemWidth = innerContainerWidth > containerMaxWidth ? containerMaxWidth - paddingWhitespaceWidth : innerContainerWidth
 
   const setScrollItemCurrentIndex = (scrollEvent: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const momentumScrollEndWidth = Math.floor(scrollEvent.nativeEvent.contentOffset.x)
+    const momentumScrollEndWidth = scrollEvent.nativeEvent.contentOffset.x
     const heroNewsItemIndex = Math.floor((momentumScrollEndWidth + combinedWitheSpaceWidth) / heroNewsItemWidth)
 
     if (heroNewsItemIndex != currentHeroNewsItemIndex) {
@@ -55,35 +55,37 @@ export function HeroSection({ hightLightedNews, isHightLightedNewsLoading }: Her
         windowWidth={windowWidth}
         imagesUrl={hightLightedNews.map((news) => news.image_url)}
       />
-      <View style={[styles.heroDescriptionContainer, { ...(appTheme === 'dark' ? styles.heroDescriptionContainerDarkTheme : {}), backgroundColor }]}>
+      <View style={[styles.heroDescriptionContainer]}>
         <LoadingWrapper isLoading={isHightLightedNewsLoading}>
-          <ScrollView
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            pagingEnabled
-            onMomentumScrollEnd={setScrollItemCurrentIndex}
-          >
-            {hightLightedNews.map((news) => (
-              <Pressable
-                key={news.id}
-                onPress={() => navigateToNewsDetail(news.id)}
-              >
-                <HeroNewsItem
-                  width={heroNewsItemWidth}
-                  title={news.title}
-                  description={news.description}
-                  messageCount={news.total_comments}
-                  publishDate={formatTimeStamp(news.publish_date)}
-                  starCounts={news.total_stars}
-                  viewCount={news.total_views}
-                />
-              </Pressable>
-            ))}
-          </ScrollView>
-          <DotPagination
-            activeIndex={currentHeroNewsItemIndex}
-            numberOfDots={hightLightedNews.length}
-          />
+          <View style={[styles.heroDescriptionContainerWrapper, { ...(appTheme === 'dark' ? styles.heroDescriptionContainerDarkTheme : {}), backgroundColor }]}>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              pagingEnabled
+              onMomentumScrollEnd={setScrollItemCurrentIndex}
+            >
+              {hightLightedNews.map((news) => (
+                <Pressable
+                  key={news.id}
+                  onPress={() => navigateToNewsDetail(news.id)}
+                >
+                  <HeroNewsItem
+                    width={heroNewsItemWidth}
+                    title={news.title}
+                    description={news.description}
+                    messageCount={news.total_comments}
+                    publishDate={formatTimeStamp(news.publish_date)}
+                    starCounts={news.total_stars}
+                    viewCount={news.total_views}
+                  />
+                </Pressable>
+              ))}
+            </ScrollView>
+            <DotPagination
+              activeIndex={currentHeroNewsItemIndex}
+              numberOfDots={hightLightedNews.length}
+            />
+          </View>
         </LoadingWrapper>
       </View>
     </View>
@@ -92,28 +94,29 @@ export function HeroSection({ hightLightedNews, isHightLightedNewsLoading }: Her
 
 const styles = StyleSheet.create({
   hero: {
-    position: 'relative',
     zIndex: 1,
     marginBottom: 50,
   },
   heroImage: {
     height: 300,
   },
-  heroDescriptionContainer: {
-    width: '90%',
-    height: 160,
-    position: 'absolute',
-    zIndex: 2,
-    bottom: -50,
-    paddingHorizontal: horizontalPaddingWidth,
+  heroDescriptionContainerWrapper: {
+    paddingHorizontal: 20,
     paddingTop: 20,
     paddingBottom: 10,
     backgroundColor: 'white',
     borderRadius: 8,
     elevation: 12,
-    marginHorizontal: horizontalMarginWidth,
-    maxWidth: 600,
     justifyContent: 'center',
+  },
+  heroDescriptionContainer: {
+    width: '100%',
+    position: 'absolute',
+    zIndex: 20,
+    bottom: -50,
+    paddingHorizontal: horizontalPaddingWidth,
+
+    maxWidth: 600,
   },
   heroDescriptionContainerDarkTheme: {
     elevation: 1,
