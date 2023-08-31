@@ -20,7 +20,7 @@ import {
 } from 'firebase/firestore'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, StyleSheet } from 'react-native'
+import { Alert, RefreshControl, StyleSheet } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { useRecoilValue } from 'recoil'
 import { HeaderControl } from '../components/header-control/HeaderControl'
@@ -188,6 +188,13 @@ export function FavoriteNews() {
           data={favoriteNews}
           keyExtractor={(item) => item.id}
           onEndReached={loadMoreNews}
+          refreshControl={
+            <RefreshControl
+              enabled={true}
+              refreshing={isLoadingMoreNews}
+              onRefresh={getFavorites}
+            />
+          }
           renderItem={({ item }) => (
             <Favorite
               title={item.title}

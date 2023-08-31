@@ -12,7 +12,7 @@ import { setStatusBarStyle } from 'expo-status-bar'
 import { DocumentData, QueryConstraint, QueryDocumentSnapshot, Timestamp, documentId, getDocs, limit, onSnapshot, query, startAfter, where } from 'firebase/firestore'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, StyleSheet, View } from 'react-native'
+import { Alert, RefreshControl, StyleSheet, View } from 'react-native'
 import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useRecoilValue } from 'recoil'
 
@@ -155,6 +155,13 @@ export function BookmarksScreen() {
                 data={bookMarkedNews}
                 keyExtractor={(item) => item.id}
                 onEndReached={loadMoreNews}
+                refreshControl={
+                  <RefreshControl
+                    enabled={true}
+                    refreshing={isLoadingBookMarks}
+                    onRefresh={getBookMarks}
+                  />
+                }
                 renderItem={({ item }) => (
                   <News.NewsRoot onPress={() => navigateToNewsDetail(item.id)}>
                     <News.NewsTitle title={item.title} />

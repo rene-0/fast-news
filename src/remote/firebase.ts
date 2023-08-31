@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
+// import { getReactNativePersistence } from 'firebase/auth/react-native'
 import { CollectionReference, DocumentData, Query, Timestamp, collection, getDocs, getFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 

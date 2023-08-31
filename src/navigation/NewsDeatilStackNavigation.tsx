@@ -1,6 +1,7 @@
 import { HomeScreen } from '@/screens/home/HomeScreen'
 import { NewsDetailScreen } from '@/screens/news-detail/NewsDetailScreen'
 import { createStackNavigator } from '@react-navigation/stack'
+import 'react-native-gesture-handler' // build falha sem
 import { RootStackParamList } from './navigation-types'
 
 const Stack = createStackNavigator<RootStackParamList>()

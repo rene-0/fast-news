@@ -9,8 +9,8 @@ import { setStatusBarStyle } from 'expo-status-bar'
 import { DocumentData, QueryConstraint, QueryDocumentSnapshot, getDocs, limit, orderBy, query, startAfter, where } from 'firebase/firestore'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, StyleSheet } from 'react-native'
-import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler'
+import { Alert, FlatList, RefreshControl, StyleSheet } from 'react-native'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 export function NewsSearchScreen() {
   const [searchedNews, setSearchedNews] = useState<NewsType[]>([])
@@ -112,6 +112,13 @@ export function NewsSearchScreen() {
           data={searchedNews}
           keyExtractor={(item) => item.id}
           onEndReached={loadMoreNews}
+          refreshControl={
+            <RefreshControl
+              enabled={true}
+              refreshing={isLoadingNews}
+              onRefresh={searchNews}
+            />
+          }
           renderItem={({ item: news }) => (
             <News.NewsRoot
               key={news.id}
