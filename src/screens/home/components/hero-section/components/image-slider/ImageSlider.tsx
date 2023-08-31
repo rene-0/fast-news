@@ -5,9 +5,10 @@ type ImageSliderProps = {
   windowWidth: number
   imageSliderRef: MutableRefObject<ScrollView | null>
   imagesUrl: string[]
+  isLoading: boolean
 }
 
-export function ImageSlider({ imageSliderRef, windowWidth, imagesUrl }: ImageSliderProps) {
+export function ImageSlider({ imageSliderRef, windowWidth, imagesUrl, isLoading }: ImageSliderProps) {
   return (
     <ScrollView
       horizontal={true}
@@ -16,7 +17,7 @@ export function ImageSlider({ imageSliderRef, windowWidth, imagesUrl }: ImageSli
       ref={(ref) => (imageSliderRef.current = ref)}
       pagingEnabled
     >
-      {imagesUrl.length > 0 ? (
+      {imagesUrl.length > 0 && !isLoading ? (
         imagesUrl.map((uri) => (
           <Image
             key={uri}

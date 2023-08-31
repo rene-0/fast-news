@@ -10,8 +10,7 @@ import { useNavigation } from '@react-navigation/native'
 import { DocumentData, QueryConstraint, QueryDocumentSnapshot, Timestamp, documentId, getDocs, limit, query, startAfter, where } from 'firebase/firestore'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, StyleSheet, View } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler'
+import { Alert, FlatList, RefreshControl, StyleSheet, View } from 'react-native'
 import { useRecoilValue } from 'recoil'
 import { HeaderControl } from '../components/header-control/HeaderControl'
 
@@ -126,6 +125,13 @@ export function NewsHistory() {
             keyExtractor={(item) => item.id}
             style={styles.newsContainer}
             onEndReached={loadMoreNews}
+            refreshControl={
+              <RefreshControl
+                enabled={true}
+                refreshing={isLoadingMoreNews}
+                onRefresh={getHistory}
+              />
+            }
             renderItem={({ item }) => (
               <News.NewsRoot onPress={() => navigateToNewsDetail(item.id)}>
                 <News.NewsTitle title={item.title} />

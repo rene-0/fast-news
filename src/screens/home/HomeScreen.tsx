@@ -4,8 +4,8 @@ import { useTheme } from '@/ui/hooks/useTheme'
 import { useIsFocused } from '@react-navigation/native'
 import { setStatusBarStyle } from 'expo-status-bar'
 import { limit, orderBy, query } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
-import { Alert, ScrollView, StyleSheet } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Alert, RefreshControl, ScrollView, StyleSheet } from 'react-native'
 import { HeroSection } from './components/hero-section/HeroSection'
 import { LatestNewsSection } from './components/lastest-news-section/LatestNewsSection'
 
@@ -43,7 +43,15 @@ export function HomeScreen() {
   }, [])
 
   return (
-    <ScrollView style={[style.root, { backgroundColor }]}>
+    <ScrollView
+      style={[style.root, { backgroundColor }]}
+      refreshControl={
+        <RefreshControl
+          refreshing={isFrontPageNewsLoading}
+          onRefresh={getFrontPageNews}
+        />
+      }
+    >
       <HeroSection
         hightLightedNews={frontPageNews.slice(0, 4)}
         isHightLightedNewsLoading={isFrontPageNewsLoading}

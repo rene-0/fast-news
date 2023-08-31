@@ -9,7 +9,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { setStatusBarStyle } from 'expo-status-bar'
 import { Timestamp, doc, getDoc, getDocs, query, runTransaction, where } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
-import { Alert, Dimensions, ScrollView, StyleSheet } from 'react-native'
+import { Alert, Dimensions, RefreshControl, ScrollView, StyleSheet } from 'react-native'
 import { useRecoilValue } from 'recoil'
 import { NewsComment } from './components/news-comments/NewsComment'
 import { NewsContent } from './components/news-content/NewsContent'
@@ -108,7 +108,16 @@ export function NewsDetailScreen({ route }: NewsDetailScreenProps) {
   }, [newsId, userAuth])
 
   return (
-    <ScrollView style={style.newsDetailRoot}>
+    <ScrollView
+      style={style.newsDetailRoot}
+      refreshControl={
+        <RefreshControl
+          enabled={true}
+          refreshing={isNewsLoading}
+          onRefresh={getNews}
+        />
+      }
+    >
       <LoadingWrapper
         size='large'
         isLoading={isNewsLoading}

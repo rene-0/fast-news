@@ -54,6 +54,7 @@ export function HeroSection({ hightLightedNews, isHightLightedNewsLoading }: Her
         imageSliderRef={heroImagesContainerRef}
         windowWidth={windowWidth}
         imagesUrl={hightLightedNews.map((news) => news.image_url)}
+        isLoading={isHightLightedNewsLoading}
       />
       <View style={[styles.heroDescriptionContainer]}>
         <LoadingWrapper isLoading={isHightLightedNewsLoading}>
