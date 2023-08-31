@@ -1,6 +1,5 @@
 import { formatTimeStamp } from '@/remote/firebase'
 import { NewsType } from '@/remote/types/data-types'
-import { LoadingWrapper } from '@/ui/components/loading-wrapper/LoadingWrapper'
 import { useTheme } from '@/ui/hooks/useTheme'
 import { useNavigation } from '@react-navigation/native'
 import React, { useRef, useState } from 'react'
@@ -15,10 +14,9 @@ const containerMaxWidth = 600
 
 type HeroSectionProps = {
   hightLightedNews: NewsType[]
-  isHightLightedNewsLoading: boolean
 }
 
-export function HeroSection({ hightLightedNews, isHightLightedNewsLoading }: HeroSectionProps) {
+export function HeroSection({ hightLightedNews }: HeroSectionProps) {
   const [currentHeroNewsItemIndex, setCurrentHeroNewsItemIndex] = useState(0)
 
   const { width: windowWidth } = useWindowDimensions()
@@ -54,40 +52,37 @@ export function HeroSection({ hightLightedNews, isHightLightedNewsLoading }: Her
         imageSliderRef={heroImagesContainerRef}
         windowWidth={windowWidth}
         imagesUrl={hightLightedNews.map((news) => news.image_url)}
-        isLoading={isHightLightedNewsLoading}
       />
       <View style={[styles.heroDescriptionContainer]}>
-        <LoadingWrapper isLoading={isHightLightedNewsLoading}>
-          <View style={[styles.heroDescriptionContainerWrapper, { ...(appTheme === 'dark' ? styles.heroDescriptionContainerDarkTheme : {}), backgroundColor }]}>
-            <ScrollView
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              pagingEnabled
-              onMomentumScrollEnd={setScrollItemCurrentIndex}
-            >
-              {hightLightedNews.map((news) => (
-                <Pressable
-                  key={news.id}
-                  onPress={() => navigateToNewsDetail(news.id)}
-                >
-                  <HeroNewsItem
-                    width={heroNewsItemWidth}
-                    title={news.title}
-                    description={news.description}
-                    messageCount={news.total_comments}
-                    publishDate={formatTimeStamp(news.publish_date)}
-                    starCounts={news.total_stars}
-                    viewCount={news.total_views}
-                  />
-                </Pressable>
-              ))}
-            </ScrollView>
-            <DotPagination
-              activeIndex={currentHeroNewsItemIndex}
-              numberOfDots={hightLightedNews.length}
-            />
-          </View>
-        </LoadingWrapper>
+        <View style={[styles.heroDescriptionContainerWrapper, { ...(appTheme === 'dark' ? styles.heroDescriptionContainerDarkTheme : {}), backgroundColor }]}>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            pagingEnabled
+            onMomentumScrollEnd={setScrollItemCurrentIndex}
+          >
+            {hightLightedNews.map((news) => (
+              <Pressable
+                key={news.id}
+                onPress={() => navigateToNewsDetail(news.id)}
+              >
+                <HeroNewsItem
+                  width={heroNewsItemWidth}
+                  title={news.title}
+                  description={news.description}
+                  messageCount={news.total_comments}
+                  publishDate={formatTimeStamp(news.publish_date)}
+                  starCounts={news.total_stars}
+                  viewCount={news.total_views}
+                />
+              </Pressable>
+            ))}
+          </ScrollView>
+          <DotPagination
+            activeIndex={currentHeroNewsItemIndex}
+            numberOfDots={hightLightedNews.length}
+          />
+        </View>
       </View>
     </View>
   )
