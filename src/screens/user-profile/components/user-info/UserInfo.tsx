@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: 10,
     marginBottom: 10,
+    overflow: 'hidden',
   },
   userAvatar: {
     height: 100,
