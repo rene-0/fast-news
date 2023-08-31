@@ -47,7 +47,12 @@ export function LatestNewsSection({ isLatestNews, latestNews }: LatestNewsSectio
           </View>
         </View>
         <View style={style.viewMoreContainer}>
-          <AppText style={style.viewMore}>{t('View more')}</AppText>
+          <AppText
+            onPress={() => navigation.navigate('NewsSearch')}
+            style={style.viewMore}
+          >
+            {t('View more')}
+          </AppText>
         </View>
       </LoadingWrapper>
     </RootView>

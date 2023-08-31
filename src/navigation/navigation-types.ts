@@ -13,6 +13,7 @@ export type RootStackParamList = {
   NewsHistory: undefined
   LoginScreen: undefined
   CreateAccountScreen: undefined
+  NewsSearch: undefined
 }
 
 export type RootNativeStackScreenProps<T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>
